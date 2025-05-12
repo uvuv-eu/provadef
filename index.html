@@ -41,6 +41,36 @@
                 height: auto;
             }
         }
+        .particle {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .particle img {
+            width: 150px;
+            height: 85px;
+        }
+
+        .particle span {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            margin-left: 15px;
+            font-size: 25pt;
+            font-family: 'Baskerville', serif;
+            font-weight: 600;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
     </style>
 </head>
 <body>
@@ -49,5 +79,33 @@
             <img src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_wip3.png?raw=true" alt="Immagine Cliccabile">
         </a>
     </div>
+    <div class="particle" id="particle1" data-link="mailto:uvuv.wip@gmail.com">
+        <img id="image1" src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_particella-empty.jpg?raw=true" alt="Contact">
+        <span id="title1">contact.</span>
+    </div>
+    <div class="particle" id="particle2" data-link="https://en.wikipedia.org/wiki/Uvula">
+        <img id="image2" src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_particella-empty.jpg?raw=true" alt="Uvula">
+        <span id="title2">uvula.</span>
+    </div>
+
+    <script>
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            particle.addEventListener('click', () => {
+                const link = particle.getAttribute('data-link');
+                if (link) window.open(link, '_blank');
+            });
+
+            function moveParticle() {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+            }
+
+            moveParticle();
+            setInterval(moveParticle, 2500);
+        });
+    </script>
 </body>
 </html>
