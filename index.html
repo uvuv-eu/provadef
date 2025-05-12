@@ -46,7 +46,6 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            animation: float 10s infinite ease-in-out;
         }
 
         .particle img {
@@ -66,11 +65,6 @@
             align-items: center;
             justify-content: center;
         }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(20px, -20px); }
-        }
     </style>
 </head>
 <body>
@@ -83,4 +77,71 @@
         <img id="image1" src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_particella-empty.jpg?raw=true" alt="Contact">
         <span id="title1">contact.</span>
     </div>
-    <div class="particle" id="particle2
+    <div class="particle" id="particle2" data-link="https://en.wikipedia.org/wiki/Uvula">
+        <img id="image2" src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_particella-empty.jpg?raw=true" alt="Uvula">
+        <span id="title2">uvula.</span>
+    </div>
+
+    <script>
+        function applyDVDMovement(particle, startX, startY) {
+            let x = startX, y = startY;
+            let dirX = 1, dirY = 1;
+            const speed = 2;
+            const dvd = particle.querySelector('img');
+
+            const dvdWidth = dvd.clientWidth;
+            const dvdHeight = dvd.clientHeight;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            function animate() {
+                // Rimbalzo verticale
+                if (y + dvdHeight >= screenHeight) {
+                    y = screenHeight - dvdHeight;  // Evita che oltrepassi il bordo
+                    dirY *= -1;
+                }
+                if (y < 0) {
+                    y = 0;  // Evita che oltrepassi il bordo superiore
+                    dirY *= -1;
+                }
+
+                // Rimbalzo orizzontale
+                if (x + dvdWidth >= screenWidth) {
+                    x = screenWidth - dvdWidth;  // Evita che oltrepassi il bordo destro
+                    dirX *= -1;
+                }
+                if (x < 0) {
+                    x = 0;  // Evita che oltrepassi il bordo sinistro
+                    dirX *= -1;
+                }
+
+                // Aggiorna la posizione
+                x += dirX * speed;
+                y += dirY * speed;
+
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+
+                window.requestAnimationFrame(animate);
+            }
+
+            window.requestAnimationFrame(animate);
+        }
+
+        const particle1 = document.getElementById('particle1');
+        applyDVDMovement(particle1, 0, 0);  // Prima particella, inizia dall'angolo in alto a sinistra
+
+        const particle2 = document.getElementById('particle2');
+        applyDVDMovement(particle2, window.innerWidth - 100, window.innerHeight - 55);  // Seconda particella, inizia in basso a sinistra
+
+        // Aggiungiamo gli eventi di click per aprire i link
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            particle.addEventListener('click', () => {
+                const link = particle.getAttribute('data-link');
+                if (link) window.open(link, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
