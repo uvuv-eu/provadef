@@ -89,22 +89,63 @@
     </div>
 
     <script>
+        const pallete = ["#ff8800", "#e124ff", "#6a19ff", "#ff2188"];
+        let prevColorChoiceIndex = 0;
+
+        function getNewRandomColor() {
+            const currentPallete = [...pallete];
+            currentPallete.splice(prevColorChoiceIndex, 1);
+            const colorChoiceIndex = Math.floor(Math.random() * currentPallete.length);
+            prevColorChoiceIndex = colorChoiceIndex < prevColorChoiceIndex ? colorChoiceIndex : colorChoiceIndex + 1;
+            return currentPallete[colorChoiceIndex];
+        }
+
+        function applyDVDMovement(particle, startX, startY) {
+            let x = startX, y = startY;
+            let dirX = 1, dirY = 1;
+            const speed = 2;
+            const dvd = particle.querySelector('img');
+            dvd.style.backgroundColor = pallete[0];
+
+            const dvdWidth = dvd.clientWidth;
+            const dvdHeight = dvd.clientHeight;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            function animate() {
+                if (y + dvdHeight >= screenHeight || y < 0) {
+                    dirY *= -1;
+                    dvd.style.backgroundColor = getNewRandomColor();
+                }
+                if (x + dvdWidth >= screenWidth || x < 0) {
+                    dirX *= -1;
+                    dvd.style.backgroundColor = getNewRandomColor();
+                }
+                x += dirX * speed;
+                y += dirY * speed;
+
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+
+                window.requestAnimationFrame(animate);
+            }
+
+            window.requestAnimationFrame(animate);
+        }
+
+        const particle1 = document.getElementById('particle1');
+        applyDVDMovement(particle1, 0, 0);  // Prima particella, inizia dall'angolo in alto a sinistra
+
+        const particle2 = document.getElementById('particle2');
+        applyDVDMovement(particle2, window.innerWidth - 100, window.innerHeight - 55);  // Seconda particella, inizia in basso a sinistra
+
+        // Aggiungiamo gli eventi di click per aprire i link
         const particles = document.querySelectorAll('.particle');
         particles.forEach(particle => {
             particle.addEventListener('click', () => {
                 const link = particle.getAttribute('data-link');
                 if (link) window.open(link, '_blank');
             });
-
-            function moveParticle() {
-                const x = Math.random() * window.innerWidth;
-                const y = Math.random() * window.innerHeight;
-                particle.style.left = `${x}px`;
-                particle.style.top = `${y}px`;
-            }
-
-            moveParticle();
-            setInterval(moveParticle, 2500);
         });
     </script>
 </body>
