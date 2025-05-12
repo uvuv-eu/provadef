@@ -41,6 +41,47 @@
                 height: auto;
             }
         }
+        /* Floating Particles */
+        .floating {
+            position: absolute;
+            animation: float 4s ease-in-out infinite;
+        }
+        .particle-1 {
+            top: 20px;
+            left: 20px;
+            background-color: black;
+            width: 100px;
+            height: 55px;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Baskerville', serif;
+            font-weight: 600;
+            font-size: 15pt;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .particle-2 {
+            bottom: 20px;
+            right: 20px;
+            color: black;
+            font-family: 'Baskerville', serif;
+            font-weight: 600;
+            text-align: center;
+        }
+        .particle-2 h1 {
+            margin: 0;
+            font-size: 60pt;
+        }
+        .particle-2 p {
+            margin: 10px 0 0;
+            font-size: 15pt;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
     </style>
 </head>
 <body>
@@ -49,5 +90,10 @@
             <img src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_wip3.png?raw=true" alt="Immagine Cliccabile">
         </a>
     </div>
+    <a href="https://en.wikipedia.org/wiki/Uvula" target="_blank" class="floating particle-1">uvula.</a>
+    <a href="mailto:uvuv.wip@gmail.com" class="floating particle-2">
+        <h1>?!</h1>
+        <p>contact</p>
+    </a>
 </body>
 </html>
