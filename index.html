@@ -41,12 +41,10 @@
             align-items: center;
             cursor: pointer;
         }
-
         .particle img {
             width: 100px;
             height: 55px;
         }
-
         .particle span {
             writing-mode: vertical-rl;
             transform: rotate(180deg);
@@ -83,34 +81,39 @@
             const speed = 2;
             const dvd = particle.querySelector('img');
 
-            const dvdWidth = dvd.clientWidth;
-            const dvdHeight = dvd.clientHeight;
+            let dvdWidth = dvd.clientWidth;
+            let dvdHeight = dvd.clientHeight;
+            let screenWidth = window.innerWidth;
+            let screenHeight = window.innerHeight;
+
+            // Aggiorna dimensioni in caso di resize
+            window.addEventListener('resize', () => {
+                screenWidth = window.innerWidth;
+                screenHeight = window.innerHeight;
+            });
 
             function animate() {
-                const screenWidth = window.innerWidth;
-                const screenHeight = window.innerHeight;
-
-                // Rimbalzo verticale
-                if (y + dvdHeight >= screenHeight) {
-                    y = screenHeight - dvdHeight;  // Allinea alla base
-                    dirY *= -1;
-                } else if (y < 0) {
-                    y = 0;  // Allinea alla cima
-                    dirY *= -1;
-                }
-
-                // Rimbalzo orizzontale
-                if (x + dvdWidth >= screenWidth) {
-                    x = screenWidth - dvdWidth;  // Allinea al lato destro
-                    dirX *= -1;
-                } else if (x < 0) {
-                    x = 0;  // Allinea al lato sinistro
-                    dirX *= -1;
-                }
-
                 // Aggiorna la posizione
                 x += dirX * speed;
                 y += dirY * speed;
+
+                // Rimbalzo orizzontale
+                if (x + dvdWidth > screenWidth) {
+                    x = screenWidth - dvdWidth;
+                    dirX *= -1;
+                } else if (x < 0) {
+                    x = 0;
+                    dirX *= -1;
+                }
+
+                // Rimbalzo verticale
+                if (y + dvdHeight > screenHeight) {
+                    y = screenHeight - dvdHeight;
+                    dirY *= -1;
+                } else if (y < 0) {
+                    y = 0;
+                    dirY *= -1;
+                }
 
                 particle.style.left = `${x}px`;
                 particle.style.top = `${y}px`;
@@ -122,12 +125,12 @@
         }
 
         const particle1 = document.getElementById('particle1');
-        applyDVDMovement(particle1, 0, 0);  // Prima particella: alto a sinistra
+        applyDVDMovement(particle1, 0, 0);
 
         const particle2 = document.getElementById('particle2');
-        applyDVDMovement(particle2, window.innerWidth - 100, window.innerHeight - 55);  // Seconda particella: basso a sinistra
+        applyDVDMovement(particle2, window.innerWidth - 100, window.innerHeight - 55);
 
-        // Gestione dei clic sulle particelle
+        // Eventi di click per aprire i link
         const particles = document.querySelectorAll('.particle');
         particles.forEach(particle => {
             particle.addEventListener('click', () => {
