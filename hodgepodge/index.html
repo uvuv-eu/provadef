@@ -43,51 +43,72 @@
       100% { transform: translateY(0px); }
     }
   </style>
+  <script>
+    window.addEventListener('load', () => {
+      const pairs = document.querySelectorAll('.particle');
+      pairs.forEach((img, i) => {
+        const label = img.nextElementSibling;
+        const rect = img.getBoundingClientRect();
+        const imgHeight = rect.height;
+        const imgTop = img.offsetTop;
+        const imgLeft = img.offsetLeft;
+
+        const spacing = imgHeight * 0.1;
+        const labelFontSize = imgHeight * 0.1;
+        const labelTop = imgTop + (imgHeight / 2) - (labelFontSize / 2);
+        const labelLeft = imgLeft + img.offsetWidth + spacing;
+
+        label.style.top = `${labelTop}px`;
+        label.style.left = `${labelLeft}px`;
+        label.style.fontSize = `${labelFontSize}px`;
+      });
+    });
+  </script>
 </head>
 <body>
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.1.jpg?raw=true" class="particle" style="top:30vh; left:10vw;">
-    <div class="label" style="top:30vh; left:calc(10vw + 10vh + 1vh); font-size:1vh;">load.1</div>
+    <div class="label">load.1</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.2.jpg?raw=true" class="particle" style="top:50vh; left:20vw;">
-    <div class="label" style="top:50vh; left:calc(20vw + 10vh + 1vh); font-size:1vh;">load.2</div>
+    <div class="label">load.2</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.3.jpg?raw=true" class="particle" style="top:10vh; left:30vw;">
-    <div class="label" style="top:10vh; left:calc(30vw + 10vh + 1vh); font-size:1vh;">load.3</div>
+    <div class="label">load.3</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.4.jpg?raw=true" class="particle" style="top:30vh; left:40vw;">
-    <div class="label" style="top:30vh; left:calc(40vw + 10vh + 1vh); font-size:1vh;">load.4</div>
+    <div class="label">load.4</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.5.jpg?raw=true" class="particle" style="top:10vh; left:80vw;">
-    <div class="label" style="top:10vh; left:calc(80vw + 10vh + 1vh); font-size:1vh;">load.5</div>
+    <div class="label">load.5</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.6.jpg?raw=true" class="particle" style="top:40vh; left:70vw;">
-    <div class="label" style="top:40vh; left:calc(70vw + 10vh + 1vh); font-size:1vh;">load.6</div>
+    <div class="label">load.6</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.7.jpg?raw=true" class="particle" style="top:60vh; left:50vw;">
-    <div class="label" style="top:60vh; left:calc(50vw + 10vh + 1vh); font-size:1vh;">load.7</div>
+    <div class="label">load.7</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.8.jpg?raw=true" class="particle" style="top:80vh; left:10vw;">
-    <div class="label" style="top:80vh; left:calc(10vw + 10vh + 1vh); font-size:1vh;">load.8</div>
+    <div class="label">load.8</div>
   </a>
 
   <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.9.jpg?raw=true" class="particle" style="top:80vh; left:60vw;">
-    <div class="label" style="top:80vh; left:calc(60vw + 10vh + 1vh); font-size:1vh;">load.9</div>
+    <div class="label">load.9</div>
   </a>
 </body>
 </html>
