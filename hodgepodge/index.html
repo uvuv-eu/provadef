@@ -33,15 +33,15 @@
       color: black;
       font-weight: 600;
       transform: rotate(-90deg);
-      transform-origin: center center;
+      transform-origin: left center;
       white-space: nowrap;
       animation: float 8s ease-in-out infinite;
     }
 
     @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-1vh); }
-      100% { transform: translateY(0px); }
+      0% { transform: translateY(0px) rotate(-90deg); }
+      50% { transform: translateY(-1vh) rotate(-90deg); }
+      100% { transform: translateY(0px) rotate(-90deg); }
     }
   </style>
   <script>
@@ -56,7 +56,7 @@
         const imgWidth = rect.width;
 
         const spacing = imgHeight * 0.1;
-        const labelFontSize = imgHeight * 0.3; // triplicato
+        const labelFontSize = imgHeight * 0.3;
 
         const labelTop = imgTop + (imgHeight / 2) - (labelFontSize / 2);
         const labelLeft = imgLeft + imgWidth + spacing;
