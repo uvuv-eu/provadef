@@ -33,8 +33,9 @@
       color: black;
       font-weight: 600;
       transform: rotate(-90deg);
-      transform-origin: left top;
+      transform-origin: center center;
       white-space: nowrap;
+      animation: float 8s ease-in-out infinite;
     }
 
     @keyframes float {
@@ -46,17 +47,19 @@
   <script>
     window.addEventListener('load', () => {
       const pairs = document.querySelectorAll('.particle');
-      pairs.forEach((img, i) => {
+      pairs.forEach((img) => {
         const label = img.nextElementSibling;
         const rect = img.getBoundingClientRect();
         const imgHeight = rect.height;
         const imgTop = img.offsetTop;
         const imgLeft = img.offsetLeft;
+        const imgWidth = rect.width;
 
         const spacing = imgHeight * 0.1;
-        const labelFontSize = imgHeight * 0.1;
+        const labelFontSize = imgHeight * 0.3; // triplicato
+
         const labelTop = imgTop + (imgHeight / 2) - (labelFontSize / 2);
-        const labelLeft = imgLeft + img.offsetWidth + spacing;
+        const labelLeft = imgLeft + imgWidth + spacing;
 
         label.style.top = `${labelTop}px`;
         label.style.left = `${labelLeft}px`;
