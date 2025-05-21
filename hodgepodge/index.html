@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hodgepodge</title>
   <style>
     html, body {
@@ -19,8 +19,11 @@
     .particle {
       position: absolute;
       height: 10vh;
-      transition: filter 0.3s;
       cursor: zoom-in;
+      /* Ruoto 90 gradi in senso orario */
+      transform: rotate(90deg);
+      transform-origin: center center;
+      transition: filter 0.3s;
       animation: float 8s ease-in-out infinite;
     }
 
@@ -32,16 +35,18 @@
       position: absolute;
       color: black;
       font-weight: 600;
-      transform: rotate(-90deg);
-      transform-origin: left center;
       white-space: nowrap;
+      /* testo NON ruotato */
+      transform: none;
+      /* Dimezzo la dimensione del font rispetto a prima (prima era imgHeight * 0.3) */
+      /* Qui il font size lo mettiamo dinamico via JS */
       animation: float 8s ease-in-out infinite;
     }
 
     @keyframes float {
-      0% { transform: translateY(0px) rotate(-90deg); }
-      50% { transform: translateY(-1vh) rotate(-90deg); }
-      100% { transform: translateY(0px) rotate(-90deg); }
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-1vh); }
+      100% { transform: translateY(0px); }
     }
   </style>
   <script>
@@ -49,17 +54,42 @@
       const pairs = document.querySelectorAll('.particle');
       pairs.forEach((img) => {
         const label = img.nextElementSibling;
+
         const rect = img.getBoundingClientRect();
-        const imgHeight = rect.height;
-        const imgTop = img.offsetTop;
-        const imgLeft = img.offsetLeft;
-        const imgWidth = rect.width;
+        // Nota: dopo la rotazione, altezza e larghezza dell'immagine nel DOM restano come prima, 
+        // ma visivamente è ruotata. Dobbiamo quindi gestire con attenzione.
 
-        const spacing = imgHeight * 0.1;
-        const labelFontSize = imgHeight * 0.3;
+        const imgHeight = rect.height; // altezza "prima" della rotazione
+        const imgWidth = rect.width;   // larghezza "prima" della rotazione
 
-        const labelTop = imgTop + (imgHeight / 2) - (labelFontSize / 2);
-        const labelLeft = imgLeft + imgWidth + spacing;
+        // Ora l'immagine è ruotata di 90°, quindi il lato lungo visivamente è imgHeight (verticale) ma nel DOM la larghezza rimane quella, perciò useremo le dimensioni così come sono per calcolare la posizione
+
+        // Il testo va posizionato rispetto al lato destro corto dell'immagine ruotata.
+        // Il lato destro corto corrisponde al lato verticale destro della particella ruotata.
+        // Calcoliamo distanza orizzontale: 10% della lunghezza dell'immagine (cioè della dimensione lungo l'asse maggiore prima della rotazione)
+        // Supponiamo che la "lunghezza" dell'immagine sia imgHeight (essendo 10vh in altezza).
+
+        // Il font size dimezzato rispetto a prima: prima era imgHeight * 0.3, ora dimezziamo a 0.15
+        const labelFontSize = imgHeight * 0.15;
+
+        // Calcoliamo la posizione del testo
+        // La top sarà centrata verticalmente rispetto al lato destro dell'immagine:
+        // Il lato destro verticale si trova a: img.offsetTop + metà della larghezza dell'immagine (prima rotazione)
+        // La left sarà: img.offsetLeft + imgWidth - (10% di imgHeight) + uno spostamento a sinistra quindi - distanza
+
+        // Poiché l'immagine è ruotata, la posizione reale visuale del lato destro corto è spostata.
+        // Per semplicità, useremo la bounding box e faremo la posizione:
+        
+        const distanceFromRight = imgHeight * 0.10; // 10% della lunghezza (altezza originale)
+
+        // Per il top:
+        // Immagine ruotata: il lato destro corto è quello verticale destro, quindi verticalmente è a metà della larghezza originale.
+        // Quindi labelTop = img.offsetTop + (imgWidth / 2) - (labelFontSize / 2)
+        const labelTop = img.offsetTop + (imgWidth / 2) - (labelFontSize / 2);
+
+        // Per left:
+        // left = img.offsetLeft + imgWidth + distanceFromRight (ma verso sinistra quindi sottraiamo)
+        const labelLeft = img.offsetLeft + imgWidth - distanceFromRight;
 
         label.style.top = `${labelTop}px`;
         label.style.left = `${labelLeft}px`;
