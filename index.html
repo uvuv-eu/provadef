@@ -1,106 +1,48 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>uv.</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffffff;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        img {
-            max-width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 0;
-            cursor: zoom-in;
-            transition: filter 0.3s ease;
-        }
-        img:hover {
-            filter: invert(100%);
-        }
-        @media (max-width: 768px) {
-            img {
-                content: url("https://github.com/uvuv-eu/provadef/blob/main/uvuv_wip3-MOBILE.png?raw=true");
-                height: auto;
-            }
-        }
-        /* Floating Particles */
-        .floating {
-            position: absolute;
-            animation: float 4s ease-in-out infinite;
-        }
-        .particle-1 {
-            top: 100px;
-            left: 100px;
-            background-color: black;
-            width: 100px;
-            height: 55px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 0px;
-        }
-        .particle-1 span {
-            font-family: 'Baskerville', serif;
-            font-weight: 600;
-            font-size: 12pt;
-            color: black;
-            transform: rotate(-90deg);
-            position: absolute;
-            right: -5px;
-        }
-        .particle-2 {
-            bottom: 20px;
-            right: 20px;
-            color: black;
-            font-family: 'Baskerville', serif;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-        }
-        .particle-2 h1 {
-            margin: 0;
-            font-size: 45pt;
-        }
-        .particle-2 p {
-            margin: 0px 0 0;
-            font-size: 12pt;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>uvuv.eu</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-wrapper {
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      height: 100%;
+      width: auto;
+      transition: filter 0.3s ease;
+      cursor: zoom-in;
+    }
+
+    .logo:hover {
+      content: url("https://github.com/uvuv-eu/provadef/blob/main/logo_rgb-MOVE.png?raw=true");
+      filter: invert(100%);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank">
-            <img src="https://github.com/uvuv-eu/provadef/blob/main/uvuv_wip3.png?raw=true" alt="Immagine Cliccabile">
-        </a>
-    </div>
-    <a href="https://en.wikipedia.org/wiki/Uvula" target="_blank" class="floating particle-1">
-        <span>uvula.</span>
-    </a>
-    <a href="mailto:uvuv.wip@gmail.com" class="floating particle-2">
-        <h1>?!</h1>
-        <p>contact.</p>
-    </a>
+  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" class="image-wrapper">
+    <img 
+      src="https://github.com/uvuv-eu/provadef/blob/main/logo_rgb.png?raw=true" 
+      alt="uvuv logo"
+      class="logo"
+    />
+  </a>
 </body>
 </html>
