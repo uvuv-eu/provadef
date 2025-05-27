@@ -3,46 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uvuv.eu</title>
+  <title>uvuv.</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: white;
       height: 100%;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
-    .image-wrapper {
-      height: 60vh;
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      animation: backgroundLoop 0.4s steps(1, end) infinite;
+    }
+
+    @keyframes backgroundLoop {
+      0%   { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%201.jpg?raw=true'); }
+      25%  { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%202.jpg?raw=true'); }
+      50%  { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%203.jpg?raw=true'); }
+      75%  { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%204.jpg?raw=true'); }
     }
 
     .logo {
-      height: 100%;
-      width: auto;
-      transition: filter 0.3s ease;
+      height: 50vh;
+      transition: filter 0.3s;
       cursor: zoom-in;
     }
 
     .logo:hover {
-      content: url("https://github.com/uvuv-eu/provadef/blob/main/logo_rgb-MOVE.png?raw=true");
       filter: invert(100%);
     }
   </style>
 </head>
 <body>
-  <a href="https://www.uvuv.eu/hodgepodge/" class="image-wrapper">
+  <a href="https://www.uvuv.eu/hodgepodge/">
     <img 
-      src="https://github.com/uvuv-eu/provadef/blob/main/logo_rgb.png?raw=true" 
-      alt="uvuv logo"
+      id="logo"
+      src="https://github.com/uvuv-eu/provadef/blob/main/logo_rgb%202.png?raw=true"
       class="logo"
+      alt="Logo"
+      onmouseover="changeImage()"
+      onmouseout="resetImage()"
     />
   </a>
+
+  <script>
+    const logo = document.getElementById("logo");
+
+    function changeImage() {
+      logo.src = "https://github.com/uvuv-eu/provadef/blob/main/logo_rgb-MOVE.png?raw=true";
+    }
+
+    function resetImage() {
+      logo.src = "https://github.com/uvuv-eu/provadef/blob/main/logo_rgb%202.png?raw=true";
+    }
+  </script>
 </body>
 </html>
