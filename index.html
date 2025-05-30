@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loop immagini con dissolvenza</title>
+  <title>uvuv.</title>
   <style>
     * {
       margin: 0;
@@ -56,28 +56,27 @@
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
   </div>
 
-  <script>
-    const slides = document.querySelectorAll('.slide');
-    let index = 0;
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const delays = [3000, 2000, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 2000, 2000]; // ms per ciascuna
+  let index = 0;
 
-    // Imposta il timer iniziale: immagine 1 visibile per 3s, poi immagine 2 per altri 3s
-    setTimeout(() => {
-      changeSlide(); // cambia alla seconda dopo 3s
-      setTimeout(() => {
-        // poi imposta intervallo regolare di 2s per le successive
-        setInterval(changeSlide, 2000);
-      }, 3000);
-    }, 3000);
+  function showNextSlide() {
+    const current = slides[index];
+    current.classList.remove('visible');
 
-    function changeSlide() {
-      const current = slides[index];
-      index = (index + 1) % slides.length;
-      const next = slides[index];
+    index = (index + 1) % slides.length;
+    const next = slides[index];
+    next.classList.add('visible');
 
-      current.classList.remove('visible');
-      next.classList.add('visible');
-    }
-  </script>
+    // imposta il tempo per il prossimo cambio
+    const delay = delays[index % delays.length];
+    setTimeout(showNextSlide, delay);
+  }
+
+  // Iniziale: mostra la prima slide (già visibile), parte dopo 3s
+  setTimeout(showNextSlide, delays[0]);
+</script>
 
 </body>
 </html>
