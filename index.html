@@ -19,8 +19,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-size: 100% 100%; /* Stretch completa */
-      background-position: center;
+      background-size: 100% auto; /* larghezza piena, altezza proporzionata */
+      background-position: center; /* centrato verticalmente */
       background-repeat: no-repeat;
       display: none;
       z-index: 0;
@@ -50,7 +50,7 @@
         bg1.classList.add('visible');
       }
       showingFirst = !showingFirst;
-    }, 3500); // cambio ogni 3.5 secondi
+    }, 2000); // cambio ogni 2 secondi
   </script>
 
 </body>
