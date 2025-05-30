@@ -1,67 +1,57 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>uvuv.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transizione Crossfade Altezza Adattiva</title>
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
+    }
+    html, body {
       height: 100%;
       overflow: hidden;
     }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: auto 100%; /* Altezza sempre piena, larghezza proporzionale */
       background-position: center;
-      animation: backgroundLoop 0.4s steps(1, end) infinite;
+      background-repeat: no-repeat;
+      transition: opacity 1.5s ease-in-out;
+      opacity: 0;
+      z-index: 0;
     }
-
-    @keyframes backgroundLoop {
-      0%   { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%201.jpg?raw=true'); }
-      25%  { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%202.jpg?raw=true'); }
-      50%  { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%203.jpg?raw=true'); }
-      75%  { background-image: url('https://github.com/uvuv-eu/provadef/blob/main/sfondo%204.jpg?raw=true'); }
-    }
-
-    .logo {
-      height: 50vh;
-      transition: filter 0.3s;
-      cursor: zoom-in;
-    }
-
-    .logo:hover {
-      filter: invert(100%);
+    .visible {
+      opacity: 1;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <a href="https://www.uvuv.eu/hodgepodge/">
-    <img 
-      id="logo"
-      src="https://github.com/uvuv-eu/provadef/blob/main/logo_rgb%202.png?raw=true"
-      class="logo"
-      alt="Logo"
-      onmouseover="changeImage()"
-      onmouseout="resetImage()"
-    />
-  </a>
+
+  <div class="background visible" id="bg1" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/dubuffet_1.png?raw=true');"></div>
+  <div class="background" id="bg2" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/dubuffet_2.png?raw=true');"></div>
 
   <script>
-    const logo = document.getElementById("logo");
+    const bg1 = document.getElementById('bg1');
+    const bg2 = document.getElementById('bg2');
+    let showingFirst = true;
 
-    function changeImage() {
-      logo.src = "https://github.com/uvuv-eu/provadef/blob/main/logo_rgb-MOVE.png?raw=true";
-    }
-
-    function resetImage() {
-      logo.src = "https://github.com/uvuv-eu/provadef/blob/main/logo_rgb%202.png?raw=true";
-    }
+    setInterval(() => {
+      if (showingFirst) {
+        bg1.classList.remove('visible');
+        bg2.classList.add('visible');
+      } else {
+        bg2.classList.remove('visible');
+        bg1.classList.add('visible');
+      }
+      showingFirst = !showingFirst;
+    }, 1500); // ogni 1.5 secondi
   </script>
+
 </body>
 </html>
