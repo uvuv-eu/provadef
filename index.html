@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Transizione Crossfade Altezza Adattiva</title>
+  <title>Transizione Crossfade Larghezza Adattiva</title>
   <style>
     * {
       margin: 0;
@@ -12,13 +12,15 @@
     html, body {
       height: 100%;
       overflow: hidden;
+      background-color: black;
     }
     .background {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background-size: auto 100%; /* Altezza sempre piena, larghezza proporzionale */
+      background-size: 100% auto; /* LARGHEZZA sempre piena, altezza proporzionale */
       background-position: center;
       background-repeat: no-repeat;
       transition: opacity 1.5s ease-in-out;
@@ -50,7 +52,7 @@
         bg1.classList.add('visible');
       }
       showingFirst = !showingFirst;
-    }, 1500); // ogni 1.5 secondi
+    }, 2500); // ogni 2.5 secondi
   </script>
 
 </body>
