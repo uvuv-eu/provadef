@@ -58,29 +58,21 @@
 
 <script>
   const slides = document.querySelectorAll('.slide');
-  const delays = Array(slides.length).fill(1500); // Ogni immagine compare ogni 1.5s
+  const delays = Array(slides.length).fill(1500); // 1.5s per ogni immagine
   let index = 0;
 
   function showNextSlide() {
-    const current = slides[index];
-    
-    // Calcola la prossima slide
     index = (index + 1) % slides.length;
     const next = slides[index];
 
-    // Aggiunge subito la visibilità alla nuova
+    // Non rimuoviamo più nulla, solo aggiungiamo la visibilità
     next.classList.add('visible');
 
-    // Dopo 0.5s, rimuove la visibilità alla precedente
-    setTimeout(() => {
-      current.classList.remove('visible');
-    }, 500); // <-- ritardo della rimozione
-
-    // Prossimo cambio dopo 1.5s
+    // Chiamata ricorsiva al prossimo cambio
     setTimeout(showNextSlide, delays[index]);
   }
 
-  // Avvia con la prima visibile
+  // Mostra subito la prima slide
   slides[0].classList.add('visible');
   setTimeout(showNextSlide, delays[0]);
 </script>
