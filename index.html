@@ -58,36 +58,31 @@
 
 <script>
   const slides = document.querySelectorAll('.slide');
-
-  // Prima iterazione: tempi personalizzati
-  const initialDelays = [3000, 2000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000]; // millisecondi
-  // Dal secondo ciclo in poi: tutte le immagini durano 1000ms
-  const loopDelays = Array(slides.length).fill(1000);
-
+  const delays = Array(slides.length).fill(1500); // Ogni immagine compare ogni 1.5s
   let index = 0;
-  let firstCycle = true;
 
   function showNextSlide() {
-    slides[index].classList.remove('visible');
-
+    const current = slides[index];
+    
+    // Calcola la prossima slide
     index = (index + 1) % slides.length;
+    const next = slides[index];
 
-    slides[index].classList.add('visible');
+    // Aggiunge subito la visibilità alla nuova
+    next.classList.add('visible');
 
-    const delay = firstCycle
-      ? initialDelays[index % initialDelays.length]
-      : loopDelays[index % loopDelays.length];
+    // Dopo 0.5s, rimuove la visibilità alla precedente
+    setTimeout(() => {
+      current.classList.remove('visible');
+    }, 500); // <-- ritardo della rimozione
 
-    // Quando finisce la prima iterazione, passa al loop
-    if (firstCycle && index === slides.length - 1) {
-      firstCycle = false;
-    }
-
-    setTimeout(showNextSlide, delay);
+    // Prossimo cambio dopo 1.5s
+    setTimeout(showNextSlide, delays[index]);
   }
 
-  // Avvia la rotazione dopo la prima attesa di 3 secondi
-  setTimeout(showNextSlide, initialDelays[0]);
+  // Avvia con la prima visibile
+  slides[0].classList.add('visible');
+  setTimeout(showNextSlide, delays[0]);
 </script>
 
 </body>
