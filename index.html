@@ -58,8 +58,9 @@
 
 <script>
   const slides = document.querySelectorAll('.slide');
-  const delay = 2000; // 2 secondi tra una slide e l'altra
-  const transitionTime = 1000; // 1 secondo di dissolvenza
+  const delay = 2000; // ogni immagine compare ogni 2 secondi
+  const transitionTime = 2000; // la dissolvenza dura 1 secondo
+  const extraVisibleTime = 1000; // quanto tempo in più la precedente resta visibile
   let index = 0;
   let prevIndex = 0;
 
@@ -67,19 +68,19 @@
     prevIndex = index;
     index = (index + 1) % slides.length;
 
-    // Aggiungi visibilità alla nuova
+    // Mostra la nuova slide
     slides[index].classList.add('visible');
 
-    // Dopo la durata della dissolvenza, togli visibilità alla precedente
+    // Dopo dissolvenza + tempo extra, nascondi la precedente
     setTimeout(() => {
       slides[prevIndex].classList.remove('visible');
-    }, transitionTime);
+    }, transitionTime + extraVisibleTime);
 
-    // Chiama ricorsivamente
+    // Chiamata ricorsiva per la prossima slide
     setTimeout(showNextSlide, delay);
   }
 
-  // Mostra subito la prima slide
+  // Mostra la prima slide all'avvio
   slides[0].classList.add('visible');
   setTimeout(showNextSlide, delay);
 </script>
