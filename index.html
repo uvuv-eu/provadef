@@ -42,7 +42,7 @@
 
   <div class="slideshow">
     <!-- Immagini -->
-    <div class="slide visible" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/4.png?raw=true');"></div>
@@ -58,31 +58,26 @@
 
 <script>
   const slides = document.querySelectorAll('.slide');
-  const delay = 2000; // ogni immagine compare ogni 2 secondi
-  const transitionTime = 2000; // la dissolvenza dura 1 secondo
-  const extraVisibleTime = 1000; // quanto tempo in più la precedente resta visibile
+  const delay = 2000; // ogni immagine compare ogni 2s
+  const transitionTime = 1000; // durata dissolvenza
+  const extraVisibleTime = 1000; // tempo extra della precedente
   let index = 0;
-  let prevIndex = 0;
+  let prevIndex = slides.length - 1; // inizia da ultima, per far dissolvere bene all'inizio
 
   function showNextSlide() {
-    prevIndex = index;
-    index = (index + 1) % slides.length;
-
-    // Mostra la nuova slide
     slides[index].classList.add('visible');
 
-    // Dopo dissolvenza + tempo extra, nascondi la precedente
     setTimeout(() => {
       slides[prevIndex].classList.remove('visible');
+      prevIndex = index;
+      index = (index + 1) % slides.length;
     }, transitionTime + extraVisibleTime);
 
-    // Chiamata ricorsiva per la prossima slide
     setTimeout(showNextSlide, delay);
   }
 
-  // Mostra la prima slide all'avvio
-  slides[0].classList.add('visible');
-  setTimeout(showNextSlide, delay);
+  // Avvia ciclo con la prima slide visibile
+  showNextSlide();
 </script>
 
 </body>
