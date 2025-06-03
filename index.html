@@ -37,22 +37,27 @@
       z-index: 1;
     }
 
-    /* TESTO UVUV */
-    .uvuv-text {
+    /* Immagine centrata con dissolvenza */
+    .center-image-container {
       position: absolute;
-      top: calc(100vh / 24);
-      left: calc(100vw / 24);
-      font-family: "Baskerville", "Georgia", serif;
-      font-size: 45pt;
-      color: #7cd2d9;
-      -webkit-text-stroke: 2pt #e461a7;
-      filter: invert(1);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 1s ease-in-out;
-      z-index: 2;
+      z-index: 3;
     }
-    .uvuv-text.visible {
+    .center-image-container.visible {
       opacity: 1;
+    }
+    .center-image-container img {
+      width: 350px;
+      height: 350px;
+      transition: filter 0.3s ease;
+    }
+    .center-image-container:hover img {
+      filter: invert(1);
+      cursor: zoom-in;
     }
   </style>
 </head>
@@ -74,8 +79,12 @@
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
   </div>
 
-  <!-- TESTO UVUV -->
-  <div class="uvuv-text" id="uvuvText">uvuv.</div>
+  <!-- Immagine centrale -->
+  <div class="center-image-container" id="centerImage">
+    <a href="https://www.uvuv.eu/hodgepodge/" target="_blank">
+      <img src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
+    </a>
+  </div>
 
   <script>
     const slides = document.querySelectorAll('.slide');
@@ -99,10 +108,10 @@
 
     showNextSlide();
 
-    // Mostra il testo "uvuv." dopo 5 secondi
+    // Mostra immagine centrale dopo 3 secondi
     setTimeout(() => {
-      document.getElementById('uvuvText').classList.add('visible');
-    }, 5000);
+      document.getElementById('centerImage').classList.add('visible');
+    }, 3000);
   </script>
 
 </body>
