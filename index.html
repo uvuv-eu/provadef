@@ -38,32 +38,45 @@
       z-index: 1;
     }
 
-    /* Immagine centrale */
-    .center-image-container {
+    .fade-image {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       opacity: 0;
       transition: opacity 1s ease-in-out;
       z-index: 3;
     }
-    .center-image-container.visible {
+    .fade-image.visible {
       opacity: 1;
     }
-    .center-image-container img {
+    .fade-image img {
       width: 350px;
       height: 350px;
       transition: opacity 0.3s ease;
-      display: block;
       cursor: zoom-in;
+      display: block;
+    }
+
+    .fade-image.center {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .fade-image.ig {
+      right: 50px;
+      bottom: 50px;
+    }
+
+    .fade-image.mail {
+      /* 350px larghezza immagine IG + 25px distanza */
+      right: calc(50px + 350px + 25px);
+      bottom: 50px;
     }
   </style>
 </head>
 <body>
 
   <div class="slideshow">
-    <!-- Immagini -->
+    <!-- Immagini di sfondo -->
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');"></div>
@@ -79,9 +92,23 @@
   </div>
 
   <!-- Immagine centrale -->
-  <div class="center-image-container" id="centerImage">
+  <div class="fade-image center" id="centerImage">
     <a href="https://www.uvuv.eu/hodgepodge/">
-      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
+      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo Centrale">
+    </a>
+  </div>
+
+  <!-- Immagine IG -->
+  <div class="fade-image ig" id="igImage">
+    <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
+      <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20verde%20e%20giallo.webp" alt="Instagram Logo">
+    </a>
+  </div>
+
+  <!-- Immagine MAIL -->
+  <div class="fade-image mail" id="mailImage">
+    <a href="mailto:uvuv.wip@gmail.com">
+      <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp" alt="Mail Logo">
     </a>
   </div>
 
@@ -95,35 +122,47 @@
 
     function showNextSlide() {
       slides[index].classList.add('visible');
-
       setTimeout(() => {
         slides[prevIndex].classList.remove('visible');
         prevIndex = index;
         index = (index + 1) % slides.length;
       }, transitionTime + extraVisibleTime);
-
       setTimeout(showNextSlide, delay);
     }
 
     showNextSlide();
 
-    // Mostra immagine centrale dopo 3 secondi
+    // Mostra le immagini dopo 3 secondi
     setTimeout(() => {
       document.getElementById('centerImage').classList.add('visible');
+      document.getElementById('igImage').classList.add('visible');
+      document.getElementById('mailImage').classList.add('visible');
     }, 3000);
 
-    // Cambia immagine al passaggio del mouse
-    const mainLogo = document.getElementById('mainLogo');
-    const originalSrc = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp";
-    const hoverSrc = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp";
+    // Funzione cambio immagine al passaggio mouse
+    function setupHover(imgId, originalSrc, hoverSrc) {
+      const img = document.getElementById(imgId);
+      img.addEventListener('mouseenter', () => img.src = hoverSrc);
+      img.addEventListener('mouseleave', () => img.src = originalSrc);
+    }
 
-    mainLogo.addEventListener('mouseenter', () => {
-      mainLogo.src = hoverSrc;
-    });
+    setupHover(
+      'mainLogo',
+      'https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp',
+      'https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp'
+    );
 
-    mainLogo.addEventListener('mouseleave', () => {
-      mainLogo.src = originalSrc;
-    });
+    setupHover(
+      'igLogo',
+      'https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20verde%20e%20giallo.webp',
+      'https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp'
+    );
+
+    setupHover(
+      'mailLogo',
+      'https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp',
+      'https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp'
+    );
   </script>
 
 </body>
