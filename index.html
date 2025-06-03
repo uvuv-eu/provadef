@@ -27,7 +27,7 @@
       height: 100%;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 100% auto; /* adatta larghezza, taglia altezza */
+      background-size: 100% auto;
       opacity: 0;
       transition: opacity 1s ease-in-out;
       z-index: 0;
@@ -35,6 +35,24 @@
     .visible {
       opacity: 1;
       z-index: 1;
+    }
+
+    /* TESTO UVUV */
+    .uvuv-text {
+      position: absolute;
+      top: calc(100vh / 24);
+      left: calc(100vw / 24);
+      font-family: "Baskerville", "Georgia", serif;
+      font-size: 45pt;
+      color: #7cd2d9;
+      -webkit-text-stroke: 2pt #e461a7;
+      filter: invert(1);
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 2;
+    }
+    .uvuv-text.visible {
+      opacity: 1;
     }
   </style>
 </head>
@@ -56,29 +74,36 @@
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
   </div>
 
-<script>
-  const slides = document.querySelectorAll('.slide');
-  const delay = 2000; // ogni immagine compare ogni 2s
-  const transitionTime = 1000; // durata dissolvenza
-  const extraVisibleTime = 1000; // tempo extra della precedente
-  let index = 0;
-  let prevIndex = slides.length - 1; // inizia da ultima, per far dissolvere bene all'inizio
+  <!-- TESTO UVUV -->
+  <div class="uvuv-text" id="uvuvText">uvuv.</div>
 
-  function showNextSlide() {
-    slides[index].classList.add('visible');
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const delay = 2000;
+    const transitionTime = 1000;
+    const extraVisibleTime = 1000;
+    let index = 0;
+    let prevIndex = slides.length - 1;
 
+    function showNextSlide() {
+      slides[index].classList.add('visible');
+
+      setTimeout(() => {
+        slides[prevIndex].classList.remove('visible');
+        prevIndex = index;
+        index = (index + 1) % slides.length;
+      }, transitionTime + extraVisibleTime);
+
+      setTimeout(showNextSlide, delay);
+    }
+
+    showNextSlide();
+
+    // Mostra il testo "uvuv." dopo 5 secondi
     setTimeout(() => {
-      slides[prevIndex].classList.remove('visible');
-      prevIndex = index;
-      index = (index + 1) % slides.length;
-    }, transitionTime + extraVisibleTime);
-
-    setTimeout(showNextSlide, delay);
-  }
-
-  // Avvia ciclo con la prima slide visibile
-  showNextSlide();
-</script>
+      document.getElementById('uvuvText').classList.add('visible');
+    }, 5000);
+  </script>
 
 </body>
 </html>
