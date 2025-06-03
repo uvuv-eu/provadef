@@ -38,7 +38,7 @@
       z-index: 1;
     }
 
-    /* Immagine centrale con transizione */
+    /* Immagine centrale */
     .center-image-container {
       position: absolute;
       top: 50%;
@@ -56,26 +56,7 @@
       height: 350px;
       transition: opacity 0.3s ease;
       display: block;
-    }
-    .center-image-container .hover-img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .center-image-container:hover .default-img {
-      opacity: 0;
-    }
-    .center-image-container:hover .hover-img {
-      opacity: 1;
       cursor: zoom-in;
-    }
-
-    /* Fade-out per transizione */
-    .fade-out {
-      opacity: 0 !important;
-      transition: opacity 0.8s ease-in-out;
     }
   </style>
 </head>
@@ -97,11 +78,10 @@
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
   </div>
 
-  <!-- Immagine centrale con hover -->
+  <!-- Immagine centrale -->
   <div class="center-image-container" id="centerImage">
-    <a href="https://www.uvuv.eu/hodgepodge/" id="linkToPage">
-      <img class="default-img" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
-      <img class="hover-img" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp" alt="Logo Hover" width="350" height="350">
+    <a href="https://www.uvuv.eu/hodgepodge/">
+      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
     </a>
   </div>
 
@@ -132,14 +112,17 @@
       document.getElementById('centerImage').classList.add('visible');
     }, 3000);
 
-    // Transizione più fluida sul click
-    const link = document.getElementById('linkToPage');
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.body.classList.add('fade-out');
-      setTimeout(() => {
-        window.location.href = this.href;
-      }, 800); // deve combaciare con la durata della transizione
+    // Cambia immagine al passaggio del mouse
+    const mainLogo = document.getElementById('mainLogo');
+    const originalSrc = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp";
+    const hoverSrc = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp";
+
+    mainLogo.addEventListener('mouseenter', () => {
+      mainLogo.src = hoverSrc;
+    });
+
+    mainLogo.addEventListener('mouseleave', () => {
+      mainLogo.src = originalSrc;
     });
   </script>
 
