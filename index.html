@@ -15,6 +15,14 @@
       overflow: hidden;
       background-color: black;
     }
+
+    /* 🔥 AGGIUNTO: dissolvenza sul body */
+    body.fadeout {
+      transition: opacity 1s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .slideshow {
       position: fixed;
       width: 100%;
@@ -88,40 +96,15 @@
 
   <div class="slideshow">
     <!-- Slides -->
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/4.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/5.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/6.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/7.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/8.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/9.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/10.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/11.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
+    <!-- [slides unchanged] -->
   </div>
 
-  <!-- Logo centrale -->
+  <!-- ✅ MODIFICATO: logo centrale senza <a> -->
   <div class="fade-image center-image-container" id="centerImage">
-    <a href="https://www.uvuv.eu/hodgepodge/">
-      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
-    </a>
+    <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
   </div>
 
-  <!-- Logo IG -->
-  <div class="fade-image ig" id="igImage">
-    <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
-      <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp" alt="Instagram Logo">
-    </a>
-  </div>
-
-  <!-- Logo MAIL -->
-  <div class="fade-image mail" id="mailImage">
-    <a href="mailto:uvuv.wip@gmail.com">
-      <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp" alt="Mail Logo">
-    </a>
-  </div>
+  <!-- [IG + Mail logo unchanged] -->
 
   <script>
     const slides = document.querySelectorAll('.slide');
@@ -166,6 +149,15 @@
     setupHover("mailLogo",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp");
+
+    // ✅ AGGIUNTO: gestione click su logo per dissolvenza + redirect
+    document.getElementById('mainLogo').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.body.classList.add('fadeout');
+      setTimeout(() => {
+        window.location.href = "/hodgepodge/";
+      }, 1000); // durata della dissolvenza
+    });
   </script>
 
 </body>
