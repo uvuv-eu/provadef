@@ -1,152 +1,150 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>uv. | hodgepodge</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>uvuv.</title>
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
       overflow: hidden;
-      width: 100vw;
-      height: 100vh;
-      background-color: #fff;
-      font-family: 'Baskerville', serif;
-      position: relative;
+      background-color: black;
+    }
+    .slideshow {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 0;
+    }
+    .visible {
+      opacity: 1;
+      z-index: 1;
     }
 
-    .particle {
+    .fade-image {
       position: absolute;
-      height: 10vh;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 3;
+    }
+    .fade-image.visible {
+      opacity: 1;
+    }
+    .fade-image img {
+      transition: opacity 0.3s ease;
       cursor: zoom-in;
-      /* Ruoto 90 gradi in senso orario */
-      transform: rotate(90deg);
-      transform-origin: center center;
-      transition: filter 0.3s;
-      animation: float 8s ease-in-out infinite;
+      display: block;
     }
 
-    .particle:hover {
-      filter: invert(100%);
+    .fade-image.ig {
+      right: 25px;
+      bottom: 25px;
+    }
+    .fade-image.ig img {
+      width: 5vw;
+      height: auto;
+      opacity: 0.6;
     }
 
-    .label {
-      position: absolute;
-      color: black;
-      font-weight: 600;
-      white-space: nowrap;
-      /* testo NON ruotato */
-      transform: none;
-      /* Dimezzo la dimensione del font rispetto a prima (prima era imgHeight * 0.3) */
-      /* Qui il font size lo mettiamo dinamico via JS */
-      animation: float 8s ease-in-out infinite;
+    .fade-image.mail {
+      right: calc(25px + 5vw + 15px);
+      bottom: 25px;
     }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-1vh); }
-      100% { transform: translateY(0px); }
+    .fade-image.mail img {
+      width: 5vw;
+      height: auto;
+      opacity: 0.6;
     }
   </style>
-  <script>
-    window.addEventListener('load', () => {
-      const pairs = document.querySelectorAll('.particle');
-      pairs.forEach((img) => {
-        const label = img.nextElementSibling;
-
-        const rect = img.getBoundingClientRect();
-        // Nota: dopo la rotazione, altezza e larghezza dell'immagine nel DOM restano come prima, 
-        // ma visivamente è ruotata. Dobbiamo quindi gestire con attenzione.
-
-        const imgHeight = rect.height; // altezza "prima" della rotazione
-        const imgWidth = rect.width;   // larghezza "prima" della rotazione
-
-        // Ora l'immagine è ruotata di 90°, quindi il lato lungo visivamente è imgHeight (verticale) ma nel DOM la larghezza rimane quella, perciò useremo le dimensioni così come sono per calcolare la posizione
-
-        // Il testo va posizionato rispetto al lato destro corto dell'immagine ruotata.
-        // Il lato destro corto corrisponde al lato verticale destro della particella ruotata.
-        // Calcoliamo distanza orizzontale: 10% della lunghezza dell'immagine (cioè della dimensione lungo l'asse maggiore prima della rotazione)
-        // Supponiamo che la "lunghezza" dell'immagine sia imgHeight (essendo 10vh in altezza).
-
-        // Il font size dimezzato rispetto a prima: prima era imgHeight * 0.3, ora dimezziamo a 0.15
-        const labelFontSize = imgHeight * 0.15;
-
-        // Calcoliamo la posizione del testo
-        // La top sarà centrata verticalmente rispetto al lato destro dell'immagine:
-        // Il lato destro verticale si trova a: img.offsetTop + metà della larghezza dell'immagine (prima rotazione)
-        // La left sarà: img.offsetLeft + imgWidth - (10% di imgHeight) + uno spostamento a sinistra quindi - distanza
-
-        // Poiché l'immagine è ruotata, la posizione reale visuale del lato destro corto è spostata.
-        // Per semplicità, useremo la bounding box e faremo la posizione:
-        
-        const distanceFromRight = imgHeight * 0.10; // 10% della lunghezza (altezza originale)
-
-        // Per il top:
-        // Immagine ruotata: il lato destro corto è quello verticale destro, quindi verticalmente è a metà della larghezza originale.
-        // Quindi labelTop = img.offsetTop + (imgWidth / 2) - (labelFontSize / 2)
-        const labelTop = img.offsetTop + (imgWidth / 2) - (labelFontSize / 2);
-
-        // Per left:
-        // left = img.offsetLeft + imgWidth + distanceFromRight (ma verso sinistra quindi sottraiamo)
-        const labelLeft = img.offsetLeft + imgWidth - distanceFromRight;
-
-        label.style.top = `${labelTop}px`;
-        label.style.left = `${labelLeft}px`;
-        label.style.fontSize = `${labelFontSize}px`;
-      });
-    });
-  </script>
 </head>
 <body>
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.1.jpg?raw=true" class="particle" style="top:30vh; left:10vw;">
-    <div class="label">load.1</div>
-  </a>
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.2.jpg?raw=true" class="particle" style="top:50vh; left:20vw;">
-    <div class="label">load.2</div>
-  </a>
+  <div class="slideshow">
+    <!-- Slides -->
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/4.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/5.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/6.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/7.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/8.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/9.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/10.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/11.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
+  </div>
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.3.jpg?raw=true" class="particle" style="top:10vh; left:30vw;">
-    <div class="label">load.3</div>
-  </a>
+  <!-- Logo IG -->
+  <div class="fade-image ig" id="igImage">
+    <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
+      <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp" alt="Instagram Logo">
+    </a>
+  </div>
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.4.jpg?raw=true" class="particle" style="top:30vh; left:40vw;">
-    <div class="label">load.4</div>
-  </a>
+  <!-- Logo MAIL -->
+  <div class="fade-image mail" id="mailImage">
+    <a href="mailto:uvuv.wip@gmail.com">
+      <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp" alt="Mail Logo">
+    </a>
+  </div>
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.5.jpg?raw=true" class="particle" style="top:10vh; left:80vw;">
-    <div class="label">load.5</div>
-  </a>
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const delay = 2000;
+    const transitionTime = 1000;
+    const extraVisibleTime = 1000;
+    let index = 0;
+    let prevIndex = slides.length - 1;
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.6.jpg?raw=true" class="particle" style="top:40vh; left:70vw;">
-    <div class="label">load.6</div>
-  </a>
+    function showNextSlide() {
+      slides[index].classList.add('visible');
+      setTimeout(() => {
+        slides[prevIndex].classList.remove('visible');
+        prevIndex = index;
+        index = (index + 1) % slides.length;
+      }, transitionTime + extraVisibleTime);
+      setTimeout(showNextSlide, delay);
+    }
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.7.jpg?raw=true" class="particle" style="top:60vh; left:50vw;">
-    <div class="label">load.7</div>
-  </a>
+    showNextSlide();
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.8.jpg?raw=true" class="particle" style="top:80vh; left:10vw;">
-    <div class="label">load.8</div>
-  </a>
+    setTimeout(() => {
+      document.getElementById('igImage').classList.add('visible');
+      document.getElementById('mailImage').classList.add('visible');
+    }, 3000);
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.9.jpg?raw=true" class="particle" style="top:80vh; left:60vw;">
-    <div class="label">load.9</div>
-  </a>
+    function setupHover(id, originalSrc, hoverSrc) {
+      const img = document.getElementById(id);
+      img.addEventListener('mouseenter', () => img.src = hoverSrc);
+      img.addEventListener('mouseleave', () => img.src = originalSrc);
+    }
 
-  <a href="https://www.instagram.com/uvuv.uvuv.uvuv/">
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.0.jpg?raw=true" class="particle" style="top:70vh; left:80vw;">
-    <div class="label">load.0</div>
-  </a>
+    setupHover("igLogo",
+      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp",
+      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20verde%20e%20giallo.webp");
+
+    setupHover("mailLogo",
+      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp",
+      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp");
+  </script>
+
 </body>
 </html>
