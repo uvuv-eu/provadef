@@ -1,46 +1,35 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>uvuv.</title>
   <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
     }
     html, body {
-      height: 100%;
-      overflow: hidden;
-      background-color: black;
+      height: 100%; overflow: hidden; background-color: black;
+      transition: opacity 0.5s ease;
+    }
+    body.fade-out {
+      opacity: 0;
     }
     .slideshow {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+      position: fixed; width: 100%; height: 100%; top: 0; left: 0;
     }
     .slide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
+      position: absolute; width: 100%; height: 100%;
+      background-position: center; background-repeat: no-repeat;
       background-size: 100% auto;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
+      opacity: 0; transition: opacity 1s ease-in-out;
       z-index: 0;
     }
     .visible {
-      opacity: 1;
-      z-index: 1;
+      opacity: 1; z-index: 1;
     }
-
     .fade-image {
-      position: absolute;
-      opacity: 0;
+      position: absolute; opacity: 0;
       transition: opacity 1s ease-in-out;
       z-index: 3;
     }
@@ -49,38 +38,26 @@
     }
     .fade-image img {
       transition: opacity 0.3s ease;
-      cursor: zoom-in;
-      display: block;
+      cursor: zoom-in; display: block;
     }
-
     .center-image-container {
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
     }
     .center-image-container img {
-      width: 20vw;
-      height: auto;
+      width: 20vw; height: auto;
     }
-
     .fade-image.ig {
-      right: 25px;
-      bottom: 25px;
+      right: 25px; bottom: 25px;
     }
     .fade-image.ig img {
-      width: 5vw;
-      height: auto;
-      opacity: 0.6;
+      width: 5vw; height: auto; opacity: 0.6;
     }
-
     .fade-image.mail {
-      right: calc(25px + 5vw + 15px);
-      bottom: 25px;
+      right: calc(25px + 5vw + 15px); bottom: 25px;
     }
     .fade-image.mail img {
-      width: 5vw;
-      height: auto;
-      opacity: 0.6;
+      width: 5vw; height: auto; opacity: 0.6;
     }
   </style>
 </head>
@@ -104,22 +81,22 @@
 
   <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
-    <a href="https://www.uvuv.eu/hodgepodge/">
-      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo">
+    <a href="#" id="mainLink">
+      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo" />
     </a>
   </div>
 
   <!-- Logo IG -->
   <div class="fade-image ig" id="igImage">
     <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
-      <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp" alt="Instagram Logo">
+      <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp" alt="Instagram Logo" />
     </a>
   </div>
 
   <!-- Logo MAIL -->
   <div class="fade-image mail" id="mailImage">
     <a href="mailto:uvuv.wip@gmail.com">
-      <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp" alt="Mail Logo">
+      <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp" alt="Mail Logo" />
     </a>
   </div>
 
@@ -140,7 +117,6 @@
       }, transitionTime + extraVisibleTime);
       setTimeout(showNextSlide, delay);
     }
-
     showNextSlide();
 
     setTimeout(() => {
@@ -149,6 +125,7 @@
       document.getElementById('mailImage').classList.add('visible');
     }, 3000);
 
+    // Hover setup come prima
     function setupHover(id, originalSrc, hoverSrc) {
       const img = document.getElementById(id);
       img.addEventListener('mouseenter', () => img.src = hoverSrc);
@@ -166,7 +143,15 @@
     setupHover("mailLogo",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp");
-  </script>
 
+    // Gestione click fade out + redirect
+    document.getElementById('mainLink').addEventListener('click', function(event) {
+      event.preventDefault(); // blocca il link normale
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = 'https://www.uvuv.eu/hodgepodge/';
+      }, 500); // aspetta 0.5s per la dissolvenza
+    });
+  </script>
 </body>
 </html>
