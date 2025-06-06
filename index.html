@@ -25,7 +25,7 @@
       opacity: 0; transition: opacity 1.5s ease-in-out;
       z-index: 0;
     }
-    .slide[data-index="3"] {
+    .slide[data-index="4"] {
       transition: opacity 3.5s ease-in-out;
     }
     .visible {
@@ -57,7 +57,7 @@
 
   <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
-    <a href="#" id="mainLink">
+    <a href="https://www.uvuv.eu/hodgepodge/" id="mainLink">
       <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo" />
     </a>
   </div>
@@ -67,21 +67,7 @@
       "https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
-    ];
-
-    const loopImages = [
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/1.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/2.i.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/3.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/pre4.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true",
@@ -94,7 +80,8 @@
     ];
 
     const transitionTime = 1500;
-    const centerImageIndex = 3; // immagine 4 nella sequenza iniziale
+    const specialImageIndex = 4; // 4.i.png
+    const centerImageIndex = 4;
 
     const slideshowContainer = document.getElementById("slideshow");
     let slideElements = [];
@@ -106,7 +93,7 @@
         slide.className = "slide";
         slide.dataset.index = idx;
         slide.style.backgroundImage = `url('${url}')`;
-        if (idx === centerImageIndex) {
+        if (idx === specialImageIndex) {
           slide.style.transition = "opacity 3.5s ease-in-out";
         }
         slideshowContainer.appendChild(slide);
@@ -114,31 +101,34 @@
       });
     }
 
-    function startSlideshow(images, loop = false) {
+    function startSlideshow(images) {
       createSlides(images);
       let index = 0;
       let prevIndex = images.length - 1;
 
       function showNextSlide() {
         slideElements[index].classList.add("visible");
-        if (index === centerImageIndex && !loop) {
+        if (index === centerImageIndex) {
           document.getElementById("centerImage").classList.add("visible");
         }
-        const currentTransition = (index === centerImageIndex && !loop) ? 3500 : transitionTime;
+
+        const currentTransition = (index === specialImageIndex) ? 3500 : transitionTime;
+
         setTimeout(() => {
           slideElements[prevIndex].classList.remove("visible");
           prevIndex = index;
           index++;
           if (index < images.length) {
             showNextSlide();
-          } else if (!loop) {
-            startSlideshow(loopImages, true);
           } else {
-            index = 0;
-            showNextSlide();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+              window.location.href = 'https://www.uvuv.eu/hodgepodge/';
+            }, 500);
           }
         }, currentTransition);
       }
+
       showNextSlide();
     }
 
@@ -154,15 +144,6 @@
     setupHover("mainLogo",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp");
-
-    // Click fade out + redirect
-    document.getElementById('mainLink').addEventListener('click', function(event) {
-      event.preventDefault();
-      document.body.classList.add('fade-out');
-      setTimeout(() => {
-        window.location.href = 'https://www.uvuv.eu/hodgepodge/';
-      }, 500);
-    });
   </script>
 </body>
 </html>
