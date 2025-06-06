@@ -22,7 +22,7 @@
       position: absolute; width: 100%; height: 100%;
       background-position: center; background-repeat: no-repeat;
       background-size: 100% auto;
-      opacity: 0; transition: opacity 1s ease-in-out;
+      opacity: 0; transition: opacity 2s ease-in-out;
       z-index: 0;
     }
     .visible {
@@ -102,8 +102,8 @@
     let slides = document.querySelectorAll('.slide');
 
     const defaultDelay = 2000;
-    const defaultTransition = 1000;
-    const extraVisibleTime = 1000;
+    const defaultTransition = 2000;
+    const extraVisibleTime = 2000;
 
     let index = 0;
     let prevIndex = slides.length - 1;
@@ -137,14 +137,13 @@
 
     function showNextSlide() {
       let transitionTime = defaultTransition;
-      let delay = defaultDelay;
 
-      // Special case: slide 4 of first run (index 3)
+      // Special case: slide 4 (index 3) of first run
       if (initialRun && index === 3) {
-        transitionTime = 2000;
-        delay = 3000;
+        transitionTime = 2500;
       }
 
+      slides[index].style.transition = `opacity ${transitionTime}ms ease-in-out`;
       slides[index].classList.add('visible');
 
       setTimeout(() => {
@@ -157,7 +156,7 @@
             initialRun = false;
             createLoopSlides();
             slides = document.querySelectorAll('.slide');
-            index = 12; // Start from loop series
+            index = 12; // Start from loop slides
             prevIndex = 11;
           } else {
             index = 12;
@@ -165,7 +164,7 @@
           }
         }
 
-        showNextSlide(); // Call next slide only after full delay
+        showNextSlide(); // Call next slide after full timing
       }, transitionTime + extraVisibleTime);
     }
 
