@@ -22,7 +22,7 @@
       position: absolute; width: 100%; height: 100%;
       background-position: center; background-repeat: no-repeat;
       background-size: 100% auto;
-      opacity: 0; transition: opacity 2s ease-in-out;
+      opacity: 0; transition: opacity 1.5s ease-in-out;
       z-index: 0;
     }
     .slide[data-index="3"] {
@@ -33,7 +33,7 @@
     }
     .fade-image {
       position: absolute; opacity: 0;
-      transition: opacity 3.5s ease-in-out;
+      transition: opacity 1.5s ease-in-out;
       z-index: 3;
     }
     .fade-image.visible {
@@ -44,8 +44,7 @@
       cursor: zoom-in; display: block;
     }
     .center-image-container {
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
     }
     .center-image-container img {
       width: 20vw; height: auto;
@@ -54,21 +53,7 @@
 </head>
 <body>
 
-  <div class="slideshow">
-    <!-- Slides -->
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');" data-index="0"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');" data-index="1"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');" data-index="2"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true');" data-index="3"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true');" data-index="4"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true');" data-index="5"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true');" data-index="6"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true');" data-index="7"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true');" data-index="8"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true');" data-index="9"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true');" data-index="10"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true');" data-index="11"></div>
-  </div>
+  <div class="slideshow" id="slideshow"></div>
 
   <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
@@ -78,34 +63,88 @@
   </div>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
-    const transitionTimes = Array.from(slides).map(slide => {
-      const index = parseInt(slide.dataset.index);
-      return index === 3 ? 3500 : 2000;
-    });
-    const extraVisibleTime = 2000;
-    let index = 0;
-    let prevIndex = slides.length - 1;
+    const initialImages = [
+      "https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
+    ];
 
-    function showNextSlide() {
-      slides[index].classList.add('visible');
+    const loopImages = [
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/1.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/2.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/3.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true",
+      "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
+    ];
 
-      // Gestione visibilità logo centrale con immagine 4
-      if (index === 3) {
-        document.getElementById('centerImage').classList.add('visible');
-      }
+    const transitionTime = 1500;
+    const centerImageIndex = 3; // immagine 4 nella sequenza iniziale
 
-      const currentTransition = transitionTimes[index];
-      setTimeout(() => {
-        slides[prevIndex].classList.remove('visible');
-        prevIndex = index;
-        index = (index + 1) % slides.length;
-        showNextSlide();
-      }, currentTransition + extraVisibleTime);
+    const slideshowContainer = document.getElementById("slideshow");
+    let slideElements = [];
+
+    function createSlides(imageUrls) {
+      slideshowContainer.innerHTML = "";
+      slideElements = imageUrls.map((url, idx) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
+        slide.dataset.index = idx;
+        slide.style.backgroundImage = `url('${url}')`;
+        if (idx === centerImageIndex) {
+          slide.style.transition = "opacity 3.5s ease-in-out";
+        }
+        slideshowContainer.appendChild(slide);
+        return slide;
+      });
     }
-    showNextSlide();
 
-    // Hover setup logo centrale
+    function startSlideshow(images, loop = false) {
+      createSlides(images);
+      let index = 0;
+      let prevIndex = images.length - 1;
+
+      function showNextSlide() {
+        slideElements[index].classList.add("visible");
+        if (index === centerImageIndex && !loop) {
+          document.getElementById("centerImage").classList.add("visible");
+        }
+        const currentTransition = (index === centerImageIndex && !loop) ? 3500 : transitionTime;
+        setTimeout(() => {
+          slideElements[prevIndex].classList.remove("visible");
+          prevIndex = index;
+          index++;
+          if (index < images.length) {
+            showNextSlide();
+          } else if (!loop) {
+            startSlideshow(loopImages, true);
+          } else {
+            index = 0;
+            showNextSlide();
+          }
+        }, currentTransition);
+      }
+      showNextSlide();
+    }
+
+    startSlideshow(initialImages);
+
+    // Hover logo centrale
     function setupHover(id, originalSrc, hoverSrc) {
       const img = document.getElementById(id);
       img.addEventListener('mouseenter', () => img.src = hoverSrc);
@@ -116,7 +155,7 @@
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp");
 
-    // Gestione click fade out + redirect
+    // Click fade out + redirect
     document.getElementById('mainLink').addEventListener('click', function(event) {
       event.preventDefault();
       document.body.classList.add('fade-out');
