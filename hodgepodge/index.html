@@ -74,12 +74,12 @@
       opacity: 0.6;
     }
 
-    /* Nuovo: immagini che scorrono da destra a sinistra */
+    /* Immagini che scorrono da destra a sinistra */
     .scrolling-images {
       position: absolute;
       top: 25px;
       left: 100px;
-      height: calc(100% - 25px - 50px - 5vw); /* 25px top + 25px bottom + 5vw per le icone in basso */
+      height: calc(100% - 25px - 50px - 5vw); /* spazio per icone in basso */
       display: flex;
       gap: 150px;
       align-items: center;
@@ -153,14 +153,14 @@
   </div>
 
   <!-- Logo IG -->
-  <div class="fade-image ig" id="igImage">
+  <div class="fade-image ig visible" id="igImage">
     <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
       <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/hodgepodge/logo%20IG%20rosa%20e%20azzurro_INV.webp" alt="Instagram Logo" />
     </a>
   </div>
 
   <!-- Logo MAIL -->
-  <div class="fade-image mail" id="mailImage">
+  <div class="fade-image mail visible" id="mailImage">
     <a href="mailto:uvuv.wip@gmail.com">
       <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/hodgepodge/logo%20MAIL%20rosa%20e%20azzurro_INV.webp" alt="Mail Logo" />
     </a>
@@ -184,12 +184,6 @@
       setTimeout(showNextSlide, delay);
     }
     showNextSlide();
-
-    // Mostra le immagini IG e MAIL dopo 3s
-    setTimeout(() => {
-      document.getElementById('igImage').classList.add('visible');
-      document.getElementById('mailImage').classList.add('visible');
-    }, 3000);
 
     // Mostra le immagini che scorrono subito con dissolvenza
     window.addEventListener('load', () => {
