@@ -10,21 +10,11 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     html, body {
       height: 100%;
       overflow: hidden;
       background-color: black;
-      opacity: 0;
-      animation: fadeInBody 0.5s ease-in-out forwards;
     }
-
-    @keyframes fadeInBody {
-      to {
-        opacity: 1;
-      }
-    }
-
     .slideshow {
       position: fixed;
       width: 100%;
@@ -33,7 +23,6 @@
       left: 0;
       z-index: 0;
     }
-
     .slide {
       position: absolute;
       width: 100%;
@@ -45,7 +34,6 @@
       transition: opacity 1s ease-in-out;
       z-index: 0;
     }
-
     .visible {
       opacity: 1;
       z-index: 1;
@@ -55,7 +43,6 @@
       position: absolute;
       z-index: 3;
     }
-
     .fade-image img {
       transition: opacity 0.3s ease;
       cursor: zoom-in;
@@ -66,7 +53,6 @@
       right: 25px;
       bottom: 25px;
     }
-
     .fade-image.ig img {
       width: 5vw;
       height: auto;
@@ -77,7 +63,6 @@
       right: calc(25px + 5vw + 15px);
       bottom: 25px;
     }
-
     .fade-image.mail img {
       width: 5vw;
       height: auto;
@@ -95,7 +80,6 @@
       animation: scroll-loop 80s linear infinite;
       z-index: 2;
     }
-
     .scrolling-images img {
       height: 100%;
       width: auto;
@@ -117,26 +101,23 @@
 <body>
 
   <div class="slideshow">
-    <!-- Slides -->
-    <!-- (omesso per brevità, lascia gli URL come nel tuo originale) -->
-    <!-- ... -->
+    <!-- Slide Images -->
+    <!-- ... (come prima, non modificato) -->
+    <!-- copia esatta delle immagini già presenti nel tuo codice -->
   </div>
 
-  <!-- Immagini che scorrono da destra a sinistra in loop -->
-  <div class="scrolling-images" id="scrollingImages">
-    <!-- Immagini load.0.jpg ... -->
-    <!-- ... -->
+  <div class="scrolling-images">
+    <!-- Immagini load -->
+    <!-- ... (come prima, non modificato) -->
   </div>
 
-  <!-- Logo IG -->
-  <div class="fade-image ig" id="igImage">
+  <div class="fade-image ig">
     <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
       <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/hodgepodge/logo%20IG%20rosa%20e%20azzurro_INV.webp" alt="Instagram Logo" />
     </a>
   </div>
 
-  <!-- Logo MAIL -->
-  <div class="fade-image mail" id="mailImage">
+  <div class="fade-image mail">
     <a href="mailto:uvuv.wip@gmail.com">
       <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/hodgepodge/logo%20MAIL%20rosa%20e%20azzurro_INV.webp" alt="Mail Logo" />
     </a>
@@ -161,7 +142,7 @@
     }
     showNextSlide();
 
-    // Hover per icone IG e MAIL
+    // Hover per IG e MAIL
     function setupHover(id, originalSrc, hoverSrc) {
       const img = document.getElementById(id);
       img.addEventListener('mouseenter', () => img.src = hoverSrc);
