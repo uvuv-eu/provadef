@@ -100,9 +100,11 @@
   <script>
     const slideshow = document.getElementById('slideshow');
     let slides = document.querySelectorAll('.slide');
-    const delay = 1500;
-    const transitionTime = 1000;
+
+    const defaultDelay = 2000;
+    const defaultTransition = 1000;
     const extraVisibleTime = 1000;
+
     let index = 0;
     let prevIndex = slides.length - 1;
     let initialRun = true;
@@ -134,6 +136,15 @@
     }
 
     function showNextSlide() {
+      let transitionTime = defaultTransition;
+      let delay = defaultDelay;
+
+      // Special case: slide 4 of first run (index 3)
+      if (initialRun && index === 3) {
+        transitionTime = 2000;
+        delay = 3000;
+      }
+
       slides[index].classList.add('visible');
 
       setTimeout(() => {
@@ -146,18 +157,19 @@
             initialRun = false;
             createLoopSlides();
             slides = document.querySelectorAll('.slide');
-            index = 12; // Start from the first "loop" image
+            index = 12; // Start from loop series
             prevIndex = 11;
           } else {
             index = 12;
             prevIndex = slides.length - 1;
           }
         }
-      }, transitionTime + extraVisibleTime);
 
-      setTimeout(showNextSlide, delay);
+        showNextSlide(); // Call next slide only after full delay
+      }, transitionTime + extraVisibleTime);
     }
 
+    // Initial trigger
     showNextSlide();
 
     setTimeout(() => {
