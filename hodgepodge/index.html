@@ -10,11 +10,21 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
       overflow: hidden;
       background-color: black;
+      opacity: 0;
+      animation: fadeInBody 0.5s ease-in-out forwards;
     }
+
+    @keyframes fadeInBody {
+      to {
+        opacity: 1;
+      }
+    }
+
     .slideshow {
       position: fixed;
       width: 100%;
@@ -23,6 +33,7 @@
       left: 0;
       z-index: 0;
     }
+
     .slide {
       position: absolute;
       width: 100%;
@@ -34,6 +45,7 @@
       transition: opacity 1s ease-in-out;
       z-index: 0;
     }
+
     .visible {
       opacity: 1;
       z-index: 1;
@@ -41,13 +53,9 @@
 
     .fade-image {
       position: absolute;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
       z-index: 3;
     }
-    .fade-image.visible {
-      opacity: 1;
-    }
+
     .fade-image img {
       transition: opacity 0.3s ease;
       cursor: zoom-in;
@@ -58,6 +66,7 @@
       right: 25px;
       bottom: 25px;
     }
+
     .fade-image.ig img {
       width: 5vw;
       height: auto;
@@ -68,29 +77,25 @@
       right: calc(25px + 5vw + 15px);
       bottom: 25px;
     }
+
     .fade-image.mail img {
       width: 5vw;
       height: auto;
       opacity: 0.6;
     }
 
-    /* Nuovo: immagini che scorrono da destra a sinistra */
     .scrolling-images {
       position: absolute;
       top: 25px;
       left: 100px;
-      height: calc(100% - 25px - 50px - 5vw); /* 25px top + 25px bottom + 5vw per le icone in basso */
+      height: calc(100% - 25px - 50px - 5vw);
       display: flex;
       gap: 150px;
       align-items: center;
       animation: scroll-loop 80s linear infinite;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
       z-index: 2;
     }
-    .scrolling-images.visible {
-      opacity: 1;
-    }
+
     .scrolling-images img {
       height: 100%;
       width: auto;
@@ -112,44 +117,15 @@
 <body>
 
   <div class="slideshow">
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/1.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/2.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/3.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true');"></div>
+    <!-- Slides -->
+    <!-- (omesso per brevità, lascia gli URL come nel tuo originale) -->
+    <!-- ... -->
   </div>
 
   <!-- Immagini che scorrono da destra a sinistra in loop -->
   <div class="scrolling-images" id="scrollingImages">
-    <!-- Primo set -->
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.0.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.1.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.2.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.3.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.4.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.5.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.6.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.7.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.8.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.9.jpg?raw=true" />
-    <!-- Duplicato per loop -->
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.0.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.1.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.2.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.3.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.4.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.5.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.6.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.7.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.8.jpg?raw=true" />
-    <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.9.jpg?raw=true" />
+    <!-- Immagini load.0.jpg ... -->
+    <!-- ... -->
   </div>
 
   <!-- Logo IG -->
@@ -184,18 +160,6 @@
       setTimeout(showNextSlide, delay);
     }
     showNextSlide();
-
-    // Mostra le immagini IG e MAIL dopo 3s
-    setTimeout(() => {
-      document.getElementById('igImage').classList.add('visible');
-      document.getElementById('mailImage').classList.add('visible');
-    }, 3000);
-
-    // Mostra le immagini che scorrono subito con dissolvenza
-    window.addEventListener('load', () => {
-      const scrolling = document.getElementById('scrollingImages');
-      scrolling.classList.add('visible');
-    });
 
     // Hover per icone IG e MAIL
     function setupHover(id, originalSrc, hoverSrc) {
