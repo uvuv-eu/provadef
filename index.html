@@ -63,37 +63,34 @@
 </head>
 <body>
 
-  <div class="slideshow">
-    <!-- Slides -->
+  <div class="slideshow" id="slideshow">
+    <!-- Prima serie di 12 immagini -->
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');"></div>
     <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/4.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/5.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/6.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/7.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/8.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/9.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/10.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/11.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/12.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true');"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true');"></div>
   </div>
 
-  <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
     <a href="#" id="mainLink">
       <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo" />
     </a>
   </div>
 
-  <!-- Logo IG -->
   <div class="fade-image ig" id="igImage">
     <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
       <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp" alt="Instagram Logo" />
     </a>
   </div>
 
-  <!-- Logo MAIL -->
   <div class="fade-image mail" id="mailImage">
     <a href="mailto:uvuv.wip@gmail.com">
       <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp" alt="Mail Logo" />
@@ -101,22 +98,66 @@
   </div>
 
   <script>
-    const slides = document.querySelectorAll('.slide');
-    const delay = 2000;
+    const slideshow = document.getElementById('slideshow');
+    let slides = document.querySelectorAll('.slide');
+    const delay = 1500;
     const transitionTime = 1000;
     const extraVisibleTime = 1000;
     let index = 0;
     let prevIndex = slides.length - 1;
+    let initialRun = true;
+
+    function createLoopSlides() {
+      const urls = [
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/1.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/2.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/3.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true',
+        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true'
+      ];
+
+      for (const url of urls) {
+        const div = document.createElement('div');
+        div.className = 'slide';
+        div.style.backgroundImage = `url('${url}')`;
+        slideshow.appendChild(div);
+      }
+
+      slides = document.querySelectorAll('.slide');
+    }
 
     function showNextSlide() {
       slides[index].classList.add('visible');
+
       setTimeout(() => {
         slides[prevIndex].classList.remove('visible');
         prevIndex = index;
-        index = (index + 1) % slides.length;
+        index++;
+
+        if (index >= slides.length) {
+          if (initialRun) {
+            initialRun = false;
+            createLoopSlides();
+            slides = document.querySelectorAll('.slide');
+            index = 12; // Start from the first "loop" image
+            prevIndex = 11;
+          } else {
+            index = 12;
+            prevIndex = slides.length - 1;
+          }
+        }
       }, transitionTime + extraVisibleTime);
+
       setTimeout(showNextSlide, delay);
     }
+
     showNextSlide();
 
     setTimeout(() => {
@@ -125,7 +166,6 @@
       document.getElementById('mailImage').classList.add('visible');
     }, 3000);
 
-    // Hover setup come prima
     function setupHover(id, originalSrc, hoverSrc) {
       const img = document.getElementById(id);
       img.addEventListener('mouseenter', () => img.src = hoverSrc);
@@ -144,13 +184,12 @@
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp");
 
-    // Gestione click fade out + redirect
     document.getElementById('mainLink').addEventListener('click', function(event) {
-      event.preventDefault(); // blocca il link normale
+      event.preventDefault();
       document.body.classList.add('fade-out');
       setTimeout(() => {
         window.location.href = 'https://www.uvuv.eu/hodgepodge/';
-      }, 500); // aspetta 0.5s per la dissolvenza
+      }, 500);
     });
   </script>
 </body>
