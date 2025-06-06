@@ -25,12 +25,15 @@
       opacity: 0; transition: opacity 2s ease-in-out;
       z-index: 0;
     }
+    .slide[data-index="3"] {
+      transition: opacity 3.5s ease-in-out;
+    }
     .visible {
       opacity: 1; z-index: 1;
     }
     .fade-image {
       position: absolute; opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 3.5s ease-in-out;
       z-index: 3;
     }
     .fade-image.visible {
@@ -47,136 +50,62 @@
     .center-image-container img {
       width: 20vw; height: auto;
     }
-    .fade-image.ig {
-      right: 25px; bottom: 25px;
-    }
-    .fade-image.ig img {
-      width: 5vw; height: auto; opacity: 0.6;
-    }
-    .fade-image.mail {
-      right: calc(25px + 5vw + 15px); bottom: 25px;
-    }
-    .fade-image.mail img {
-      width: 5vw; height: auto; opacity: 0.6;
-    }
   </style>
 </head>
 <body>
 
-  <div class="slideshow" id="slideshow">
-    <!-- Prima serie di 12 immagini -->
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true');"></div>
-    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true');"></div>
+  <div class="slideshow">
+    <!-- Slides -->
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true');" data-index="0"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true');" data-index="1"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true');" data-index="2"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true');" data-index="3"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true');" data-index="4"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true');" data-index="5"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true');" data-index="6"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true');" data-index="7"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true');" data-index="8"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true');" data-index="9"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true');" data-index="10"></div>
+    <div class="slide" style="background-image: url('https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true');" data-index="11"></div>
   </div>
 
+  <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
     <a href="#" id="mainLink">
       <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp" alt="Logo" />
     </a>
   </div>
 
-  <div class="fade-image ig" id="igImage">
-    <a href="https://www.instagram.com/uvuv.uvuv.uvuv/" target="_blank" rel="noopener noreferrer">
-      <img id="igLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp" alt="Instagram Logo" />
-    </a>
-  </div>
-
-  <div class="fade-image mail" id="mailImage">
-    <a href="mailto:uvuv.wip@gmail.com">
-      <img id="mailLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp" alt="Mail Logo" />
-    </a>
-  </div>
-
   <script>
-    const slideshow = document.getElementById('slideshow');
-    let slides = document.querySelectorAll('.slide');
-
-    const defaultDelay = 2000;
-    const defaultTransition = 2000;
+    const slides = document.querySelectorAll('.slide');
+    const transitionTimes = Array.from(slides).map(slide => {
+      const index = parseInt(slide.dataset.index);
+      return index === 3 ? 3500 : 2000;
+    });
     const extraVisibleTime = 2000;
-
     let index = 0;
     let prevIndex = slides.length - 1;
-    let initialRun = true;
-
-    function createLoopSlides() {
-      const urls = [
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/1.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/2.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/3.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/7.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/8.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/9.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/10.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/11.i.png?raw=true',
-        'https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true'
-      ];
-
-      for (const url of urls) {
-        const div = document.createElement('div');
-        div.className = 'slide';
-        div.style.backgroundImage = `url('${url}')`;
-        slideshow.appendChild(div);
-      }
-
-      slides = document.querySelectorAll('.slide');
-    }
 
     function showNextSlide() {
-      let transitionTime = defaultTransition;
-
-      // Special case: slide 4 (index 3) of first run
-      if (initialRun && index === 3) {
-        transitionTime = 2500;
-      }
-
-      slides[index].style.transition = `opacity ${transitionTime}ms ease-in-out`;
       slides[index].classList.add('visible');
 
+      // Gestione visibilità logo centrale con immagine 4
+      if (index === 3) {
+        document.getElementById('centerImage').classList.add('visible');
+      }
+
+      const currentTransition = transitionTimes[index];
       setTimeout(() => {
         slides[prevIndex].classList.remove('visible');
         prevIndex = index;
-        index++;
-
-        if (index >= slides.length) {
-          if (initialRun) {
-            initialRun = false;
-            createLoopSlides();
-            slides = document.querySelectorAll('.slide');
-            index = 12; // Start from loop slides
-            prevIndex = 11;
-          } else {
-            index = 12;
-            prevIndex = slides.length - 1;
-          }
-        }
-
-        showNextSlide(); // Call next slide after full timing
-      }, transitionTime + extraVisibleTime);
+        index = (index + 1) % slides.length;
+        showNextSlide();
+      }, currentTransition + extraVisibleTime);
     }
-
-    // Initial trigger
     showNextSlide();
 
-    setTimeout(() => {
-      document.getElementById('centerImage').classList.add('visible');
-      document.getElementById('igImage').classList.add('visible');
-      document.getElementById('mailImage').classList.add('visible');
-    }, 3000);
-
+    // Hover setup logo centrale
     function setupHover(id, originalSrc, hoverSrc) {
       const img = document.getElementById(id);
       img.addEventListener('mouseenter', () => img.src = hoverSrc);
@@ -187,14 +116,7 @@
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde%20e%20giallo.webp",
       "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20rosa%20e%20azzurro.webp");
 
-    setupHover("igLogo",
-      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20rosa%20e%20azzurro.webp",
-      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20IG%20verde%20e%20giallo.webp");
-
-    setupHover("mailLogo",
-      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20rosa%20e%20azzurro.webp",
-      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20MAIL%20verde%20e%20giallo.webp");
-
+    // Gestione click fade out + redirect
     document.getElementById('mainLink').addEventListener('click', function(event) {
       event.preventDefault();
       document.body.classList.add('fade-out');
