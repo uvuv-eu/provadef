@@ -45,8 +45,11 @@
 
     .fade-image {
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 2s ease-in-out;
       z-index: 3;
     }
 
@@ -58,20 +61,29 @@
       transition: filter 0.3s ease;
       cursor: zoom-in;
       display: block;
+      width: 20vw;
+      height: auto;
     }
 
-    .center-image-container {
+    .logo-layer {
+      position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
     }
 
-    .center-image-container img {
+    .logo-layer.visible {
+      opacity: 1;
+    }
+
+    .logo-layer img {
       width: 20vw;
       height: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
+      cursor: zoom-in;
+      display: block;
     }
   </style>
 </head>
@@ -79,11 +91,17 @@
 
   <div class="slideshow" id="slideshow"></div>
 
-  <!-- Logo centrale con doppio layer -->
-  <div class="fade-image center-image-container" id="centerImage">
-    <a href="https://www.uvuv.eu/hodgepodge/" id="mainLink">
-      <img id="fucsiaLogo" src="" alt="Logo Fucsia" />
-      <img id="verdeLogo" src="" alt="Logo Verde" />
+  <!-- Logo fucsia -->
+  <div class="logo-layer" id="logoFucsia">
+    <a href="https://www.uvuv.eu/hodgepodge/">
+      <img id="logoFucsiaImg" src="" alt="Logo Fucsia" />
+    </a>
+  </div>
+
+  <!-- Logo verde -->
+  <div class="logo-layer" id="logoVerde">
+    <a href="https://www.uvuv.eu/hodgepodge/">
+      <img id="logoVerdeImg" src="" alt="Logo Verde" />
     </a>
   </div>
 
@@ -108,15 +126,11 @@
     const logoVerdeStatic = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde_STATICO.webp";
     const logoVerdeDynamic = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde_DINAMICO.webp";
 
-    const transitionTime = 1000;
-    const extraVisibleTime = 1000;
-    const logoOverlapTime = 2000;
-    const delay = 2000;
-
     const slideshowContainer = document.getElementById("slideshow");
-    const centerImage = document.getElementById("centerImage");
-    const fucsiaLogo = document.getElementById("fucsiaLogo");
-    const verdeLogo = document.getElementById("verdeLogo");
+    const logoFucsia = document.getElementById("logoFucsia");
+    const logoFucsiaImg = document.getElementById("logoFucsiaImg");
+    const logoVerde = document.getElementById("logoVerde");
+    const logoVerdeImg = document.getElementById("logoVerdeImg");
 
     let slideElements = [];
 
@@ -131,27 +145,26 @@
       });
     }
 
-    function setHoverBehavior(imgElement, staticSrc, hoverSrc) {
+    function setHoverImage(imgElement, staticSrc, hoverSrc) {
       imgElement.onmouseenter = () => imgElement.src = hoverSrc;
       imgElement.onmouseleave = () => imgElement.src = staticSrc;
     }
 
-    function showFucsiaLogo() {
-      fucsiaLogo.src = logoFucsiaStatic;
-      setHoverBehavior(fucsiaLogo, logoFucsiaStatic, logoFucsiaDynamic);
-      fucsiaLogo.classList.add("visible");
-      centerImage.classList.add("visible");
+    function showLogoFucsia() {
+      logoFucsiaImg.src = logoFucsiaStatic;
+      setHoverImage(logoFucsiaImg, logoFucsiaStatic, logoFucsiaDynamic);
+      logoFucsia.classList.add("visible");
     }
 
-    function showVerdeLogo() {
-      verdeLogo.src = logoVerdeStatic;
-      setHoverBehavior(verdeLogo, logoVerdeStatic, logoVerdeDynamic);
-      verdeLogo.classList.add("visible");
+    function fadeInLogoVerde() {
+      logoVerdeImg.src = logoVerdeStatic;
+      setHoverImage(logoVerdeImg, logoVerdeStatic, logoVerdeDynamic);
+      logoVerde.classList.add("visible");
 
-      // Rimuove il logo fucsia dopo l'overlap time
+      // Dopo 2s (durata fade-in verde) + 2s extra → rimuovi il fucsia
       setTimeout(() => {
-        fucsiaLogo.classList.remove("visible");
-      }, logoOverlapTime);
+        logoFucsia.classList.remove("visible");
+      }, 4000);
     }
 
     function startSlideshow(images) {
@@ -171,21 +184,25 @@
         currentSlide.classList.add("visible");
 
         if (index === 0) {
-          setTimeout(showFucsiaLogo, transitionTime);
+          // Mostra logo fucsia con transizione graduale (4s)
+          setTimeout(() => {
+            showLogoFucsia();
+          }, 0);
         }
 
         if (index === 3) {
-          setTimeout(showVerdeLogo, transitionTime); // logo verde entra in dissolvenza
+          // Con slide 4.i → entra logo verde, logo fucsia resta ancora per 2s
+          fadeInLogoVerde();
         }
 
         if (index > 0) {
           const previousSlide = slideElements[index - 1];
           setTimeout(() => {
             previousSlide.classList.remove("visible");
-          }, extraVisibleTime);
+          }, 1000); // lascia un po' di margine tra slide
         }
 
-        setTimeout(showNextSlide, delay);
+        setTimeout(showNextSlide, 2000);
         index++;
       }
 
