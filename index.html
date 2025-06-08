@@ -33,7 +33,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 2s ease-in-out;
       z-index: 0;
     }
 
@@ -45,7 +45,7 @@
     .fade-image {
       position: absolute;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 2s ease-in-out;
       z-index: 3;
     }
 
@@ -87,7 +87,6 @@
       "https://github.com/uvuv-eu/provadef/blob/main/1.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/2.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/3.png?raw=true",
-      "https://github.com/uvuv-eu/provadef/blob/main/pre4.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/4.i.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/5.i.png?raw=true",
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/6.i.png?raw=true",
@@ -99,9 +98,9 @@
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
     ];
 
-    const transitionTime = 1000; // 1s fade-in
-    const overlapTime = 2000;    // la precedente rimane sotto per altri 2s
-    const delayBetweenSlides = transitionTime; // nuova slide parte appena la precedente ha finito
+    const transitionTime = 2000; // 2s fade-in
+    const overlapTime = 3000;    // la precedente rimane sotto per altri 3s
+    const delayBetweenSlides = 3000; // 2s transizione + 1s pausa
 
     const slideshowContainer = document.getElementById("slideshow");
     let slideElements = [];
@@ -134,12 +133,12 @@
         const currentSlide = slideElements[index];
         currentSlide.classList.add("visible");
 
-        // Mostra logo con sesta immagine (index 5)
-        if (index === 5) {
+        // Mostra logo con terza immagine (index 2)
+        if (index === 2) {
           document.getElementById("centerImage").classList.add("visible");
         }
 
-        // Nascondi la precedente dopo 2s di overlap
+        // Nascondi la precedente dopo 3s di overlap
         if (index > 0) {
           const previousSlide = slideElements[index - 1];
           setTimeout(() => {
@@ -147,7 +146,7 @@
           }, overlapTime);
         }
 
-        // Dopo 1s, parte la prossima immagine
+        // Dopo 3s, parte la prossima immagine (2s transizione + 1s pausa)
         setTimeout(showNextSlide, delayBetweenSlides);
         index++;
       }
