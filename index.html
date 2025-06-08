@@ -55,9 +55,13 @@
     }
 
     .fade-image img {
-      transition: opacity 0.3s ease;
+      transition: filter 0.3s ease;
       cursor: zoom-in;
       display: block;
+    }
+
+    .fade-image img:hover {
+      filter: invert(100%);
     }
 
     .center-image-container {
@@ -79,7 +83,7 @@
   <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
     <a href="https://www.uvuv.eu/hodgepodge/" id="mainLink">
-      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/250607_logo%20fucsia-INV.webp" alt="Logo" />
+      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/250608_logo%20fucsia.webp" alt="Logo" />
     </a>
   </div>
 
@@ -99,9 +103,9 @@
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
     ];
 
-    const transitionTime = 1000;       // 1s transizione
-    const extraVisibleTime = 1000;     // 1s di visibilità extra
-    const delay = 2000;                // 1s transizione + 1s extra
+    const transitionTime = 1000;
+    const extraVisibleTime = 1000;
+    const delay = 2000;
 
     const slideshowContainer = document.getElementById("slideshow");
     let slideElements = [];
@@ -123,7 +127,6 @@
 
       function showNextSlide() {
         if (index >= images.length) {
-          // Fine slideshow ➝ reindirizzamento
           document.body.classList.add("fade-out");
           setTimeout(() => {
             window.location.href = "https://www.uvuv.eu/hodgepodge/";
@@ -153,19 +156,6 @@
     }
 
     startSlideshow(images);
-
-    // Hover effetto per logo
-    function setupHover(id, originalSrc, hoverSrc) {
-      const img = document.getElementById(id);
-      img.addEventListener("mouseenter", () => img.src = hoverSrc);
-      img.addEventListener("mouseleave", () => img.src = originalSrc);
-    }
-
-    setupHover(
-      "mainLogo",
-      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/250607_logo%20fucsia-INV.webp",
-      "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/250607_logo%20verde-INV.webp"
-    );
   </script>
 </body>
 </html>
