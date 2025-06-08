@@ -23,6 +23,7 @@
       height: 100%;
       top: 0;
       left: 0;
+      z-index: 0;
     }
 
     .slide {
@@ -33,7 +34,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      transition: opacity 1s ease-in-out;
       z-index: 0;
     }
 
@@ -45,7 +46,7 @@
     .fade-image {
       position: absolute;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      transition: opacity 1s ease-in-out;
       z-index: 3;
     }
 
@@ -98,9 +99,9 @@
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
     ];
 
-    const transitionTime = 2000; // 2s fade-in
-    const overlapTime = 3000;    // la precedente rimane sotto per altri 3s
-    const delayBetweenSlides = 3000; // 2s transizione + 1s pausa
+    const transitionTime = 1000; // 1s transizione
+    const extraVisibleTime = 1000; // 1s extra visibile
+    const delay = 2000; // ogni 2s parte una nuova slide
 
     const slideshowContainer = document.getElementById("slideshow");
     let slideElements = [];
@@ -119,36 +120,23 @@
     function startSlideshow(images) {
       createSlides(images);
       let index = 0;
+      let prevIndex = images.length - 1;
 
       function showNextSlide() {
-        if (index >= images.length) {
-          // fine slideshow ➝ redirect
-          document.body.classList.add("fade-out");
-          setTimeout(() => {
-            window.location.href = "https://www.uvuv.eu/hodgepodge/";
-          }, 500);
-          return;
-        }
+        slideElements[index].classList.add('visible');
 
-        const currentSlide = slideElements[index];
-        currentSlide.classList.add("visible");
-
-        // Mostra logo con terza immagine (index 2)
+        // Mostra il logo centrale con la terza slide
         if (index === 2) {
-          document.getElementById("centerImage").classList.add("visible");
+          document.getElementById('centerImage').classList.add('visible');
         }
 
-        // Nascondi la precedente dopo 3s di overlap
-        if (index > 0) {
-          const previousSlide = slideElements[index - 1];
-          setTimeout(() => {
-            previousSlide.classList.remove("visible");
-          }, overlapTime);
-        }
+        setTimeout(() => {
+          slideElements[prevIndex].classList.remove('visible');
+          prevIndex = index;
+          index = (index + 1) % images.length;
+        }, transitionTime + extraVisibleTime);
 
-        // Dopo 3s, parte la prossima immagine (2s transizione + 1s pausa)
-        setTimeout(showNextSlide, delayBetweenSlides);
-        index++;
+        setTimeout(showNextSlide, delay);
       }
 
       showNextSlide();
