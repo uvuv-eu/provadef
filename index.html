@@ -99,9 +99,9 @@
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
     ];
 
-    const transitionTime = 1000; // 1s transizione
-    const extraVisibleTime = 1000; // 1s extra visibile
-    const delay = 2000; // ogni 2s parte una nuova slide
+    const transitionTime = 1000;       // 1s transizione
+    const extraVisibleTime = 1000;     // 1s di visibilità extra
+    const delay = 2000;                // 1s transizione + 1s extra
 
     const slideshowContainer = document.getElementById("slideshow");
     let slideElements = [];
@@ -120,23 +120,33 @@
     function startSlideshow(images) {
       createSlides(images);
       let index = 0;
-      let prevIndex = images.length - 1;
 
       function showNextSlide() {
-        slideElements[index].classList.add('visible');
-
-        // Mostra il logo centrale con la terza slide
-        if (index === 2) {
-          document.getElementById('centerImage').classList.add('visible');
+        if (index >= images.length) {
+          // Fine slideshow ➝ reindirizzamento
+          document.body.classList.add("fade-out");
+          setTimeout(() => {
+            window.location.href = "https://www.uvuv.eu/hodgepodge/";
+          }, 500);
+          return;
         }
 
-        setTimeout(() => {
-          slideElements[prevIndex].classList.remove('visible');
-          prevIndex = index;
-          index = (index + 1) % images.length;
-        }, transitionTime + extraVisibleTime);
+        const currentSlide = slideElements[index];
+        currentSlide.classList.add("visible");
+
+        if (index === 2) {
+          document.getElementById("centerImage").classList.add("visible");
+        }
+
+        if (index > 0) {
+          const previousSlide = slideElements[index - 1];
+          setTimeout(() => {
+            previousSlide.classList.remove("visible");
+          }, extraVisibleTime);
+        }
 
         setTimeout(showNextSlide, delay);
+        index++;
       }
 
       showNextSlide();
@@ -144,7 +154,7 @@
 
     startSlideshow(images);
 
-    // Hover logo centrale
+    // Hover effetto per logo
     function setupHover(id, originalSrc, hoverSrc) {
       const img = document.getElementById(id);
       img.addEventListener("mouseenter", () => img.src = hoverSrc);
