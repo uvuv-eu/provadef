@@ -55,13 +55,9 @@
     }
 
     .fade-image img {
-      transition: filter 0.3s ease;
-      cursor: zoom-in;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
       display: block;
-    }
-
-    .fade-image img:hover {
-      filter: invert(100%);
     }
 
     .center-image-container {
@@ -83,7 +79,7 @@
   <!-- Logo centrale -->
   <div class="fade-image center-image-container" id="centerImage">
     <a href="https://www.uvuv.eu/hodgepodge/" id="mainLink">
-      <img id="mainLogo" src="https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/250608_logo%20fucsia.webp" alt="Logo" />
+      <img id="mainLogo" src="" alt="Logo" />
     </a>
   </div>
 
@@ -103,11 +99,19 @@
       "https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/12.i.png?raw=true"
     ];
 
+    const logoFucsiaStatic = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20fucsia_STATICO.webp";
+    const logoFucsiaDinamic = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20fucsia_DINAMICO.webp";
+    const logoVerdeStatic = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde_STATICO.webp";
+    const logoVerdeDinamic = "https://raw.githubusercontent.com/uvuv-eu/provadef/refs/heads/main/logo%20verde_DINAMICO.webp";
+
     const transitionTime = 1000;
     const extraVisibleTime = 1000;
     const delay = 2000;
 
     const slideshowContainer = document.getElementById("slideshow");
+    const centerImage = document.getElementById("centerImage");
+    const mainLogo = document.getElementById("mainLogo");
+
     let slideElements = [];
 
     function createSlides(imageUrls) {
@@ -119,6 +123,24 @@
         slideshowContainer.appendChild(slide);
         return slide;
       });
+    }
+
+    function updateCenterImage(index) {
+      if (index === 1) {
+        // Mostra il logo fucsia
+        mainLogo.src = logoFucsiaStatic;
+        centerImage.classList.add("visible");
+        setHoverImage(mainLogo, logoFucsiaStatic, logoFucsiaDinamic);
+      } else if (index === 3) {
+        // Cambia al logo verde
+        mainLogo.src = logoVerdeStatic;
+        setHoverImage(mainLogo, logoVerdeStatic, logoVerdeDinamic);
+      }
+    }
+
+    function setHoverImage(imgElement, staticSrc, hoverSrc) {
+      imgElement.addEventListener("mouseenter", () => imgElement.src = hoverSrc);
+      imgElement.addEventListener("mouseleave", () => imgElement.src = staticSrc);
     }
 
     function startSlideshow(images) {
@@ -137,9 +159,7 @@
         const currentSlide = slideElements[index];
         currentSlide.classList.add("visible");
 
-        if (index === 2) {
-          document.getElementById("centerImage").classList.add("visible");
-        }
+        updateCenterImage(index);
 
         if (index > 0) {
           const previousSlide = slideElements[index - 1];
