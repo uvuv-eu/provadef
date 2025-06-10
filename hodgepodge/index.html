@@ -82,12 +82,12 @@
       opacity: 0.6;
     }
 
-    /* Nuovo: immagini che scorrono da destra a sinistra */
+    /* Immagini che scorrono da destra a sinistra */
     .scrolling-images {
       position: absolute;
-      top: 10px;
-      left: 50px;
-      height: calc(100% - 20px - 50px - 5vw); /* 10px top + 10px bottom + 5vw per le icone in basso */
+      top: 25px;
+      left: 100px;
+      height: calc(100% - 25px - 50px - 5vw); /* 25px top + 25px bottom + 5vw per le icone in basso */
       display: flex;
       gap: 150px;
       align-items: center;
@@ -102,8 +102,8 @@
     }
 
     .scrolling-images img {
+      height: 100%;
       width: auto;
-      height: 40vh; /* Altezza delle immagini per un layout più equilibrato */
       object-fit: contain;
       user-select: none;
       pointer-events: none;
@@ -127,32 +127,31 @@
 
       /* Immagini che scorrono */
       .scrolling-images {
-        top: 10px;
+        top: 10px; /* Distanza 10px dal bordo superiore */
         left: 50px;
         gap: 100px;
       }
 
       .scrolling-images img {
-        height: 40vh; /* Altezza delle immagini impostata al 40% della visualizzazione */
-        width: auto;
+        height: auto;
+        width: 60vw; /* Immagini al 60% della viewport */
         object-fit: contain;
       }
 
-      /* Immagini MAIL e IG */
       .fade-image.ig img,
       .fade-image.mail img {
-        width: 10vw; /* Larghezza delle immagini MAIL e IG impostata al 10% della larghezza dello schermo */
+        width: 10vw; /* Icone delle immagini su schermo più piccolo */
         opacity: 1;
       }
 
       .fade-image.ig {
-        right: 10px;
         bottom: 10px;
+        right: 10px;
       }
 
       .fade-image.mail {
-        right: calc(10px + 10vw + 10px); /* Distanza tra le due immagini di 10px */
         bottom: 10px;
+        right: calc(10px + 10vw + 10px); /* Distanza tra le immagini */
       }
     }
   </style>
