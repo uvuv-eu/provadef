@@ -85,6 +85,20 @@
       cursor: zoom-in;
       display: block;
     }
+
+    /* Media query per dispositivi mobili */
+    @media (max-width: 768px) {
+      .logo-layer img {
+        width: 30vw; /* La larghezza dell'immagine del logo è il 30% della larghezza dello schermo */
+      }
+    }
+
+    /* Media query per dispositivi molto piccoli (come iPhone) */
+    @media (max-width: 480px) {
+      .logo-layer img {
+        width: 40vw; /* Se lo schermo è più piccolo, il logo può essere un po' più grande per migliorare la visibilità */
+      }
+    }
   </style>
 </head>
 <body>
