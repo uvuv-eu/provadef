@@ -10,11 +10,13 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
       overflow: hidden;
       background-color: black;
     }
+
     .slideshow {
       position: fixed;
       width: 100%;
@@ -23,6 +25,7 @@
       left: 0;
       z-index: 0;
     }
+
     .slide {
       position: absolute;
       width: 100%;
@@ -34,6 +37,7 @@
       transition: opacity 1s ease-in-out;
       z-index: 0;
     }
+
     .visible {
       opacity: 1;
       z-index: 1;
@@ -45,9 +49,11 @@
       transition: opacity 1s ease-in-out;
       z-index: 3;
     }
+
     .fade-image.visible {
       opacity: 1;
     }
+
     .fade-image img {
       transition: opacity 0.3s ease;
       cursor: zoom-in;
@@ -58,6 +64,7 @@
       right: 25px;
       bottom: 25px;
     }
+
     .fade-image.ig img {
       width: 5vw;
       height: auto;
@@ -68,6 +75,7 @@
       right: calc(25px + 5vw + 15px);
       bottom: 25px;
     }
+
     .fade-image.mail img {
       width: 5vw;
       height: auto;
@@ -88,9 +96,11 @@
       transition: opacity 1s ease-in-out;
       z-index: 2;
     }
+
     .scrolling-images.visible {
       opacity: 1;
     }
+
     .scrolling-images img {
       height: 100%;
       width: auto;
@@ -105,6 +115,33 @@
       }
       100% {
         transform: translateX(-50%);
+      }
+    }
+
+    /* Media query per dispositivi mobili */
+    @media (max-width: 768px) {
+      .slide {
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Immagini che scorrono */
+      .scrolling-images {
+        top: 15px;
+        left: 50px;
+        gap: 100px;
+      }
+
+      .scrolling-images img {
+        height: auto;
+        width: 25vw; /* Adatta la larghezza delle immagini al 25% dello schermo */
+        object-fit: contain;
+      }
+
+      .fade-image.ig img,
+      .fade-image.mail img {
+        width: 10vw; /* Ingrandiamo leggermente le icone su schermi più piccoli */
+        opacity: 1;
       }
     }
   </style>
@@ -128,7 +165,6 @@
 
   <!-- Immagini che scorrono da destra a sinistra in loop -->
   <div class="scrolling-images" id="scrollingImages">
-    <!-- Primo set -->
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.0.jpg?raw=true" />
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.1.jpg?raw=true" />
     <img src="https://github.com/uvuv-eu/provadef/blob/main/hodgepodge/load.2.jpg?raw=true" />
