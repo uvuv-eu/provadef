@@ -174,7 +174,29 @@
       <img class="identity" src="assets/uvuv-logo-description.png" alt="uv. searching and representing [raw version]">
     </header>
     <script>
-      window.setTimeout(() => document.body.classList.add("revealed"), 500);
+      const backgrounds = [...document.querySelectorAll(".backgrounds img")];
+      const minimumBlackDuration = new Promise((resolve) => window.setTimeout(resolve, 500));
+
+      function waitForImage(image) {
+        const decodeImage = () => {
+          if (typeof image.decode !== "function") return Promise.resolve();
+          return image.decode().catch(() => undefined);
+        };
+
+        if (image.complete) return decodeImage();
+
+        return new Promise((resolve) => {
+          image.addEventListener("load", () => decodeImage().then(resolve), { once: true });
+          image.addEventListener("error", resolve, { once: true });
+        });
+      }
+
+      Promise.all([
+        minimumBlackDuration,
+        ...backgrounds.map(waitForImage)
+      ]).then(() => {
+        window.requestAnimationFrame(() => document.body.classList.add("revealed"));
+      });
 
       const mobileQuery = window.matchMedia("(max-width: 767px)");
       const identity = document.querySelector(".identity");
