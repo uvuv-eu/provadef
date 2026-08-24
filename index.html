@@ -109,6 +109,34 @@
         .backgrounds img:first-child { opacity: 1; }
         .identity { transition: none; }
       }
+
+      @media (max-width: 767px) {
+        body {
+          min-height: 200dvh;
+        }
+
+        .backgrounds img {
+          width: auto;
+          height: 100dvh;
+          min-height: 0;
+          max-width: none;
+          object-fit: fill;
+        }
+
+        .identity {
+          position: fixed;
+          top: 20px;
+          left: 12.5vw;
+          width: 50vw;
+          margin: 0;
+          filter: invert(1) blur(var(--mobile-blur, 0px));
+          transition: none;
+        }
+
+        .identity:hover {
+          filter: invert(1) blur(var(--mobile-blur, 0px));
+        }
+      }
     </style>
   </head>
   <body>
@@ -129,6 +157,31 @@
     </header>
     <script>
       window.setTimeout(() => document.body.classList.add("revealed"), 500);
+
+      const mobileQuery = window.matchMedia("(max-width: 767px)");
+      const identity = document.querySelector(".identity");
+      let blurFrame;
+
+      function updateMobileBlur() {
+        blurFrame = undefined;
+        if (!mobileQuery.matches) {
+          identity.style.removeProperty("--mobile-blur");
+          return;
+        }
+
+        const maximumScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maximumScroll > 0 ? Math.min(window.scrollY / maximumScroll, 1) : 0;
+        identity.style.setProperty("--mobile-blur", `${progress * 2}px`);
+      }
+
+      function requestMobileBlurUpdate() {
+        if (!blurFrame) blurFrame = window.requestAnimationFrame(updateMobileBlur);
+      }
+
+      window.addEventListener("scroll", requestMobileBlurUpdate, { passive: true });
+      window.addEventListener("resize", requestMobileBlurUpdate);
+      mobileQuery.addEventListener("change", requestMobileBlurUpdate);
+      updateMobileBlur();
     </script>
   </body>
 </html>
