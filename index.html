@@ -72,8 +72,8 @@
 
       @keyframes cycle {
         0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        12.49% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
-        12.5%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+        12.6% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+        12.61%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
       }
 
       .identity {
@@ -113,6 +113,12 @@
       @media (max-width: 767px) {
         body {
           min-height: 200dvh;
+        }
+
+        .backgrounds {
+          position: absolute;
+          inset: 0 0 auto;
+          height: 100dvh;
         }
 
         .backgrounds img {
