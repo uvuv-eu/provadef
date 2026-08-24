@@ -111,13 +111,18 @@
       }
 
       @media (max-width: 767px) {
+        html,
         body {
-          min-height: 200dvh;
+          height: 100dvh;
+          min-height: 100dvh;
+          overflow: hidden;
+          overscroll-behavior: none;
+          touch-action: none;
         }
 
         .backgrounds {
-          position: absolute;
-          inset: 0 0 auto;
+          position: fixed;
+          inset: 0;
           height: 100dvh;
         }
 
@@ -167,6 +172,8 @@
       const mobileQuery = window.matchMedia("(max-width: 767px)");
       const identity = document.querySelector(".identity");
       let blurFrame;
+      let mobileBlurProgress = 0;
+      let previousTouchY;
 
       function updateMobileBlur() {
         blurFrame = undefined;
@@ -175,18 +182,46 @@
           return;
         }
 
-        const maximumScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = maximumScroll > 0 ? Math.min(window.scrollY / maximumScroll, 1) : 0;
-        identity.style.setProperty("--mobile-blur", `${progress * 2}px`);
+        identity.style.setProperty("--mobile-blur", `${mobileBlurProgress * 2}px`);
       }
 
       function requestMobileBlurUpdate() {
         if (!blurFrame) blurFrame = window.requestAnimationFrame(updateMobileBlur);
       }
 
-      window.addEventListener("scroll", requestMobileBlurUpdate, { passive: true });
       window.addEventListener("resize", requestMobileBlurUpdate);
       mobileQuery.addEventListener("change", requestMobileBlurUpdate);
+
+      window.addEventListener("touchstart", (event) => {
+        previousTouchY = event.touches[0].clientY;
+      }, { passive: true });
+
+      window.addEventListener("touchmove", (event) => {
+        if (!mobileQuery.matches || previousTouchY === undefined) return;
+        event.preventDefault();
+        const currentTouchY = event.touches[0].clientY;
+        mobileBlurProgress = Math.min(Math.max(
+          mobileBlurProgress + (previousTouchY - currentTouchY) / window.innerHeight,
+          0
+        ), 1);
+        previousTouchY = currentTouchY;
+        requestMobileBlurUpdate();
+      }, { passive: false });
+
+      window.addEventListener("touchend", () => {
+        previousTouchY = undefined;
+      }, { passive: true });
+
+      window.addEventListener("wheel", (event) => {
+        if (!mobileQuery.matches) return;
+        event.preventDefault();
+        mobileBlurProgress = Math.min(Math.max(
+          mobileBlurProgress + event.deltaY / window.innerHeight,
+          0
+        ), 1);
+        requestMobileBlurUpdate();
+      }, { passive: false });
+
       updateMobileBlur();
     </script>
   </body>
