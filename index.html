@@ -147,6 +147,42 @@
 
       body.at-bottom .contact {
         opacity: 1;
+        pointer-events: auto;
+      }
+
+      .contact-image {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .contact-link {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: block;
+        background: rgba(255, 255, 255, 0.001);
+        -webkit-backdrop-filter: blur(0);
+        backdrop-filter: blur(0);
+        transition: -webkit-backdrop-filter 180ms ease, backdrop-filter 180ms ease;
+        outline: none;
+      }
+
+      .contact-link:hover,
+      .contact-link:focus-visible,
+      .contact-link:active {
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
+      }
+
+      .contact-instagram {
+        top: 0;
+        height: 40%;
+      }
+
+      .contact-email {
+        top: 40%;
+        height: 60%;
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -238,7 +274,11 @@
       <img class="identity" src="assets/uvuv-logo-description.png" alt="uv. searching and representing [raw version]" role="button" tabindex="0" aria-label="Apri la seconda schermata">
     </header>
     <section class="secondary-screen" aria-label="Seconda schermata">
-      <img class="contact" src="assets/contact.png" alt="Contatti UV">
+      <div class="contact">
+        <img class="contact-image" src="assets/contact.png" alt="Contatti UV">
+        <a class="contact-link contact-instagram" href="https://www.instagram.com/uv.uv.uv.uv.uv.uv/" target="_blank" rel="noopener noreferrer" aria-label="Profilo Instagram uv.uv.uv.uv.uv.uv"></a>
+        <a class="contact-link contact-email" href="mailto:uslenghivrenozaj@gmail.com" aria-label="Invia un’email a uslenghivrenozaj@gmail.com"></a>
+      </div>
     </section>
     <script>
       const backgrounds = [...document.querySelectorAll(".backgrounds img")];
