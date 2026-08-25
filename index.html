@@ -132,6 +132,21 @@
         scroll-snap-align: start;
       }
 
+      .contact {
+        position: absolute;
+        left: 25vw;
+        bottom: 40px;
+        width: 25vw;
+        height: auto;
+        opacity: 0;
+        transition: opacity 0.2s linear;
+        pointer-events: none;
+      }
+
+      body.at-bottom .contact {
+        opacity: 1;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .backgrounds img { animation: none; }
         .backgrounds img:first-child { opacity: 1; }
@@ -215,7 +230,9 @@
       <h1 class="visually-hidden">uv</h1>
       <img class="identity" src="assets/uvuv-logo-description.png" alt="uv. searching and representing [raw version]" role="button" tabindex="0" aria-label="Apri la seconda schermata">
     </header>
-    <section class="secondary-screen" aria-label="Seconda schermata"></section>
+    <section class="secondary-screen" aria-label="Seconda schermata">
+      <img class="contact" src="assets/contact.png" alt="Contatti UV">
+    </section>
     <script>
       const backgrounds = [...document.querySelectorAll(".backgrounds img")];
       const minimumBlackDuration = new Promise((resolve) => window.setTimeout(resolve, 500));
@@ -296,6 +313,16 @@
         secondaryScreen.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
+      function updateBottomState() {
+        if (mobileQuery.matches) {
+          document.body.classList.remove("at-bottom");
+          return;
+        }
+
+        const maximumScroll = document.documentElement.scrollHeight - window.innerHeight;
+        document.body.classList.toggle("at-bottom", window.scrollY >= maximumScroll - 1);
+      }
+
       identity.addEventListener("click", openSecondaryScreen);
       identity.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -303,6 +330,11 @@
           openSecondaryScreen();
         }
       });
+
+      window.addEventListener("scroll", updateBottomState, { passive: true });
+      window.addEventListener("resize", updateBottomState);
+      mobileQuery.addEventListener("change", updateBottomState);
+      updateBottomState();
 
       function updateMobileBlur() {
         blurFrame = undefined;
