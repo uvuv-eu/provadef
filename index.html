@@ -139,6 +139,14 @@
           min-height: 0;
           max-width: none;
           object-fit: fill;
+          animation: none;
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        .backgrounds img.mobile-current {
+          opacity: 1;
+          animation: mobile-zoom 1.5s linear forwards;
         }
 
         .identity {
@@ -154,6 +162,11 @@
         .identity:hover {
           filter: invert(1) blur(var(--mobile-blur, 0px));
         }
+      }
+
+      @keyframes mobile-zoom {
+        from { transform: translate(-50%, -50%) scale(1); }
+        to { transform: translate(-50%, -50%) scale(1.05); }
       }
     </style>
   </head>
@@ -195,7 +208,11 @@
         minimumBlackDuration,
         ...backgrounds.map(waitForImage)
       ]).then(() => {
-        window.requestAnimationFrame(() => document.body.classList.add("revealed"));
+        if (window.matchMedia("(max-width: 767px)").matches) {
+          startMobileSlideshow();
+        } else {
+          window.requestAnimationFrame(() => document.body.classList.add("revealed"));
+        }
       });
 
       const mobileQuery = window.matchMedia("(max-width: 767px)");
@@ -203,6 +220,45 @@
       let blurFrame;
       let mobileBlurProgress = 0;
       let previousTouchY;
+      let mobileSlideIndex = 0;
+      let mobileCurrentSlide;
+      let mobileLayer = 1;
+
+      function presentMobileSlide(index, firstSlide = false) {
+        const nextSlide = backgrounds[index];
+
+        waitForImage(nextSlide).then(() => {
+          nextSlide.classList.remove("mobile-current");
+          nextSlide.style.zIndex = String(++mobileLayer);
+          nextSlide.style.opacity = "1";
+          nextSlide.style.transform = "translate(-50%, -50%) scale(1)";
+
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => {
+              const previousSlide = mobileCurrentSlide;
+              nextSlide.classList.add("mobile-current");
+              mobileCurrentSlide = nextSlide;
+
+              if (previousSlide && previousSlide !== nextSlide) {
+                previousSlide.classList.remove("mobile-current");
+                previousSlide.style.opacity = "0";
+              }
+
+              if (firstSlide) document.body.classList.add("revealed");
+
+              window.setTimeout(() => {
+                mobileSlideIndex = (mobileSlideIndex + 1) % backgrounds.length;
+                presentMobileSlide(mobileSlideIndex);
+              }, 1500);
+            });
+          });
+        });
+      }
+
+      function startMobileSlideshow() {
+        mobileSlideIndex = 0;
+        presentMobileSlide(mobileSlideIndex, true);
+      }
 
       function updateMobileBlur() {
         blurFrame = undefined;
