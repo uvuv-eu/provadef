@@ -22,7 +22,13 @@
         background: #000;
       }
 
+      html {
+        scroll-snap-type: y mandatory;
+      }
+
       body {
+        position: relative;
+        min-height: 200vh;
         overflow-x: hidden;
       }
 
@@ -44,10 +50,12 @@
       }
 
       .backgrounds {
-        position: fixed;
-        inset: 0;
+        position: absolute;
+        inset: 0 0 auto;
+        height: 100vh;
         overflow: hidden;
         background: #000;
+        scroll-snap-align: start;
       }
 
       .backgrounds img {
@@ -84,15 +92,18 @@
       }
 
       .identity {
-        position: relative;
+        position: fixed;
+        top: 40px;
+        left: 25vw;
         z-index: 1;
         display: block;
         width: 25vw;
         height: auto;
-        margin: 40px 0 0 25vw;
+        margin: 0;
         filter: invert(1);
         mix-blend-mode: difference;
         transition: filter 180ms ease;
+        cursor: pointer;
       }
 
       .identity:hover {
@@ -111,6 +122,16 @@
         border: 0;
       }
 
+      .secondary-screen {
+        position: absolute;
+        top: 100vh;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #fff;
+        scroll-snap-align: start;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .backgrounds img { animation: none; }
         .backgrounds img:first-child { opacity: 1; }
@@ -125,6 +146,10 @@
           overflow: hidden;
           overscroll-behavior: none;
           touch-action: none;
+        }
+
+        html {
+          scroll-snap-type: none;
         }
 
         .backgrounds {
@@ -162,6 +187,10 @@
         .identity:hover {
           filter: invert(1) blur(var(--mobile-blur, 0px));
         }
+
+        .secondary-screen {
+          display: none;
+        }
       }
 
       @keyframes mobile-zoom {
@@ -184,8 +213,9 @@
 
     <header>
       <h1 class="visually-hidden">uv</h1>
-      <img class="identity" src="assets/uvuv-logo-description.png" alt="uv. searching and representing [raw version]">
+      <img class="identity" src="assets/uvuv-logo-description.png" alt="uv. searching and representing [raw version]" role="button" tabindex="0" aria-label="Apri la seconda schermata">
     </header>
+    <section class="secondary-screen" aria-label="Seconda schermata"></section>
     <script>
       const backgrounds = [...document.querySelectorAll(".backgrounds img")];
       const minimumBlackDuration = new Promise((resolve) => window.setTimeout(resolve, 500));
@@ -217,6 +247,7 @@
 
       const mobileQuery = window.matchMedia("(max-width: 767px)");
       const identity = document.querySelector(".identity");
+      const secondaryScreen = document.querySelector(".secondary-screen");
       let blurFrame;
       let mobileBlurProgress = 0;
       let previousTouchY;
@@ -259,6 +290,19 @@
         mobileSlideIndex = 0;
         presentMobileSlide(mobileSlideIndex, true);
       }
+
+      function openSecondaryScreen() {
+        if (mobileQuery.matches) return;
+        secondaryScreen.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      identity.addEventListener("click", openSecondaryScreen);
+      identity.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openSecondaryScreen();
+        }
+      });
 
       function updateMobileBlur() {
         blurFrame = undefined;
