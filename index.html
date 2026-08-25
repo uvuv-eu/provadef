@@ -56,6 +56,7 @@
         overflow: hidden;
         background: #000;
         scroll-snap-align: start;
+        z-index: 0;
       }
 
       .backgrounds img {
@@ -95,7 +96,7 @@
         position: fixed;
         top: 40px;
         left: 25vw;
-        z-index: 1;
+        z-index: 3;
         display: block;
         width: 25vw;
         height: auto;
@@ -130,6 +131,7 @@
         height: 100vh;
         background: #fff;
         scroll-snap-align: start;
+        z-index: 2;
       }
 
       .contact {
@@ -156,21 +158,18 @@
       @media (max-width: 767px) {
         html,
         body {
-          height: 100dvh;
-          min-height: 100dvh;
-          overflow: hidden;
+          min-height: 200dvh;
+          overflow-x: hidden;
+          overflow-y: auto;
           overscroll-behavior: none;
-          touch-action: none;
-        }
-
-        html {
-          scroll-snap-type: none;
+          touch-action: pan-y;
         }
 
         .backgrounds {
           position: fixed;
           inset: 0;
           height: 100dvh;
+          scroll-snap-align: none;
         }
 
         .backgrounds img {
@@ -204,7 +203,14 @@
         }
 
         .secondary-screen {
-          display: none;
+          top: 100dvh;
+          height: 100dvh;
+        }
+
+        .contact {
+          left: 12.5vw;
+          bottom: 20px;
+          width: 50vw;
         }
       }
 
@@ -266,8 +272,6 @@
       const identity = document.querySelector(".identity");
       const secondaryScreen = document.querySelector(".secondary-screen");
       let blurFrame;
-      let mobileBlurProgress = 0;
-      let previousTouchY;
       let mobileSlideIndex = 0;
       let mobileCurrentSlide;
       let mobileLayer = 1;
@@ -309,16 +313,10 @@
       }
 
       function openSecondaryScreen() {
-        if (mobileQuery.matches) return;
         secondaryScreen.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       function updateBottomState() {
-        if (mobileQuery.matches) {
-          document.body.classList.remove("at-bottom");
-          return;
-        }
-
         const maximumScroll = document.documentElement.scrollHeight - window.innerHeight;
         document.body.classList.toggle("at-bottom", window.scrollY >= maximumScroll - 1);
       }
@@ -343,7 +341,9 @@
           return;
         }
 
-        identity.style.setProperty("--mobile-blur", `${mobileBlurProgress * 2}px`);
+        const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+        const blurProgress = 1 - Math.abs(progress * 2 - 1);
+        identity.style.setProperty("--mobile-blur", `${blurProgress * 2}px`);
       }
 
       function requestMobileBlurUpdate() {
@@ -352,37 +352,7 @@
 
       window.addEventListener("resize", requestMobileBlurUpdate);
       mobileQuery.addEventListener("change", requestMobileBlurUpdate);
-
-      window.addEventListener("touchstart", (event) => {
-        previousTouchY = event.touches[0].clientY;
-      }, { passive: true });
-
-      window.addEventListener("touchmove", (event) => {
-        if (!mobileQuery.matches || previousTouchY === undefined) return;
-        event.preventDefault();
-        const currentTouchY = event.touches[0].clientY;
-        mobileBlurProgress = Math.min(Math.max(
-          mobileBlurProgress + (previousTouchY - currentTouchY) / window.innerHeight,
-          0
-        ), 1);
-        previousTouchY = currentTouchY;
-        requestMobileBlurUpdate();
-      }, { passive: false });
-
-      window.addEventListener("touchend", () => {
-        previousTouchY = undefined;
-      }, { passive: true });
-
-      window.addEventListener("wheel", (event) => {
-        if (!mobileQuery.matches) return;
-        event.preventDefault();
-        mobileBlurProgress = Math.min(Math.max(
-          mobileBlurProgress + event.deltaY / window.innerHeight,
-          0
-        ), 1);
-        requestMobileBlurUpdate();
-      }, { passive: false });
-
+      window.addEventListener("scroll", requestMobileBlurUpdate, { passive: true });
       updateMobileBlur();
     </script>
   </body>
