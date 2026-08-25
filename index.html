@@ -158,7 +158,7 @@
       @media (max-width: 767px) {
         html,
         body {
-          min-height: 200dvh;
+          min-height: 200svh;
           overflow-x: hidden;
           overflow-y: auto;
           overscroll-behavior: none;
@@ -166,15 +166,15 @@
         }
 
         .backgrounds {
-          position: fixed;
-          inset: 0;
-          height: 100dvh;
-          scroll-snap-align: none;
+          position: absolute;
+          inset: 0 0 auto;
+          height: 100svh;
+          scroll-snap-align: start;
         }
 
         .backgrounds img {
           width: auto;
-          height: 100dvh;
+          height: 100svh;
           min-height: 0;
           max-width: none;
           object-fit: fill;
@@ -203,8 +203,8 @@
         }
 
         .secondary-screen {
-          top: 100dvh;
-          height: 100dvh;
+          top: 100svh;
+          height: 100svh;
         }
 
         .contact {
@@ -341,7 +341,10 @@
           return;
         }
 
-        const progress = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1);
+        const slideHeight = secondaryScreen.offsetTop;
+        const progress = slideHeight > 0
+          ? Math.min(Math.max(window.scrollY / slideHeight, 0), 1)
+          : 0;
         const blurProgress = 1 - Math.abs(progress * 2 - 1);
         identity.style.setProperty("--mobile-blur", `${blurProgress * 2}px`);
       }
